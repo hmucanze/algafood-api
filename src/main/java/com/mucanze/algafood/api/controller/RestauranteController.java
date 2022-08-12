@@ -3,6 +3,7 @@ package com.mucanze.algafood.api.controller;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -28,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mucanze.algafood.api.model.output.CozinhaOutputModel;
+import com.mucanze.algafood.api.model.output.RestauranteOutputModel;
 import com.mucanze.algafood.core.validation.ValidacaoException;
 import com.mucanze.algafood.domain.model.Restaurante;
 import com.mucanze.algafood.domain.repository.RestauranteRepository;
@@ -47,13 +50,16 @@ public class RestauranteController {
 	private SmartValidator validator;
 	
 	@GetMapping
-	public List<Restaurante> listar() {
-		return restauranteRepository.findAll();
+	public List<RestauranteOutputModel> listar() {
+		return toCollectionModel(restauranteRepository.findAll());
 	}
 	
 	@GetMapping("/{id}")
-	public Restaurante buscarPorId(@PathVariable Long id) {
-		return cadastroRestauranteService.buscarPorId(id);
+	public RestauranteOutputModel buscarPorId(@PathVariable Long id) {
+		
+		Restaurante restaurante = cadastroRestauranteService.buscarPorId(id);
+		
+		return toModel(restaurante);
 	}
 	
 	@PostMapping
@@ -117,6 +123,27 @@ public class RestauranteController {
 			
 			throw new HttpMessageNotReadableException(e.getMessage(), rootCause, serverHttpRequest);
 		}
+	}
+	
+	private RestauranteOutputModel toModel(Restaurante restaurante) {
+		CozinhaOutputModel cozinhaOutputModel = new CozinhaOutputModel();
+		cozinhaOutputModel.setId(restaurante.getCozinha().getId());
+		cozinhaOutputModel.setNome(restaurante.getCozinha().getNome());
+		
+		RestauranteOutputModel restauranteOutputModel = new RestauranteOutputModel();
+		restauranteOutputModel.setIdRestaurante(restaurante.getId());
+		restauranteOutputModel.setNome(restaurante.getNome());
+		restauranteOutputModel.setFrete(restaurante.getTaxaFrete());
+		restauranteOutputModel.setActivo(restaurante.getActivo());
+		restauranteOutputModel.setAberto(restaurante.getAberto());
+		restauranteOutputModel.setCozinha(cozinhaOutputModel);
+		return restauranteOutputModel;
+	}
+	
+	private List<RestauranteOutputModel> toCollectionModel(List<Restaurante> restaurantes) {
+		return restaurantes.stream()
+				.map(restaurante -> toModel(restaurante))
+				.collect(Collectors.toList());
 	}
 
 }
