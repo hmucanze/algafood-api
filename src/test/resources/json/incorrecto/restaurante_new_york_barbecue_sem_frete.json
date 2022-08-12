@@ -1,0 +1,8 @@
+{
+	"nome": "New York Barbecue",
+	"activo": true,
+	"aberto": true,
+	"cozinha": {
+		"id": 2
+	}
+}
