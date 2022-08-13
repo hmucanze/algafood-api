@@ -66,11 +66,15 @@ public class RestauranteController {
 
 	@PutMapping("/{id}")
 	public RestauranteOutputModel actualizar(@RequestBody @Valid RestauranteInputModel restauranteInputModel, @PathVariable Long id) {
-		Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInputModel);
+		//Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInputModel);
 		
-		restaurante = cadastroRestauranteService.actualizar(restaurante, id);
+		Restaurante restauranteRetornado = cadastroRestauranteService.buscarPorId(id);
 		
-		return restauranteOutputModelAssembler.toModel(restaurante);	
+		restauranteInputDisassembler.copyToDomainObject(restauranteInputModel, restauranteRetornado);
+		
+		restauranteRetornado = cadastroRestauranteService.actualizar(restauranteRetornado);
+		
+		return restauranteOutputModelAssembler.toModel(restauranteRetornado);	
 	}
 	
 	@DeleteMapping("/{id}")

@@ -10,7 +10,7 @@ import lombok.Setter;
 public class RestauranteOutputModel {
 	
 	private Long idRestaurante;
-	private String nome;
+	private String nomeRestaurante;
 	private BigDecimal frete;
 	private Boolean activo;
 	private Boolean aberto;

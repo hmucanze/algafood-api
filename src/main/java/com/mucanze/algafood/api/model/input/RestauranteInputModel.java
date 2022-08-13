@@ -20,7 +20,7 @@ public class RestauranteInputModel {
 	
 	@NotNull
 	@PositiveOrZero
-	private BigDecimal frete;
+	private BigDecimal taxaFrete;
 	
 	@NotNull
 	private Boolean activo;

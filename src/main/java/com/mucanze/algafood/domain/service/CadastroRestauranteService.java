@@ -1,6 +1,5 @@
 package com.mucanze.algafood.domain.service;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -37,12 +36,12 @@ public class CadastroRestauranteService {
 		}
 	}
 	
-	public Restaurante actualizar(Restaurante restaurante, Long id) {
-		Restaurante restauranteRetornado = buscarPorId(id);
+	public Restaurante actualizar(Restaurante restaurante) {
+		//Restaurante restauranteRetornado = buscarPorId(id);
 		
-		BeanUtils.copyProperties(restaurante, restauranteRetornado, "id", "formasPagamento", "dataCadastro");
+		//BeanUtils.copyProperties(restaurante, restauranteRetornado, "id", "formasPagamento", "dataCadastro");
 		
-		return salvar(restauranteRetornado);
+		return salvar(restaurante);
 	}
 	
 	public void remover(Long id) {
