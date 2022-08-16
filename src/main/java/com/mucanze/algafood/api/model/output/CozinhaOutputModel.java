@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class CozinhaOutputModel {
 	
-	private Long id;
+	private Long cozinhaId;
 	private String nome;
 
 }
