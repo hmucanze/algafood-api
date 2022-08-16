@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mucanze.algafood.api.assembler.CidadeInputDisassembler;
+import com.mucanze.algafood.api.assembler.CidadeOutputModelAssembler;
+import com.mucanze.algafood.api.model.input.CidadeInputModel;
+import com.mucanze.algafood.api.model.output.CidadeOutputModel;
 import com.mucanze.algafood.domain.model.Cidade;
 import com.mucanze.algafood.domain.repository.CidadeRepository;
 import com.mucanze.algafood.domain.service.CadastroCidadeService;
@@ -30,25 +34,36 @@ public class CidadeController {
 	@Autowired
 	private CadastroCidadeService cadastroCidadeService;
 	
+	@Autowired
+	private CidadeOutputModelAssembler cidadeOutputModelAssembler;
+	
+	@Autowired
+	private CidadeInputDisassembler cidadeInputDisassembler;
+	
 	@GetMapping
-	public List<Cidade> listar() {
-		return cidadeRepository.findAll();
+	public List<CidadeOutputModel> listar() {
+		return cidadeOutputModelAssembler.toCollectionModel(cidadeRepository.findAll());
 	}
 	
 	@GetMapping("/{id}")
-	public Cidade buscarPorId(@PathVariable Long id) {
-		return cadastroCidadeService.buscarPorId(id);
+	public CidadeOutputModel buscarPorId(@PathVariable Long id) {
+		Cidade cidade = cadastroCidadeService.buscarPorId(id);
+		return cidadeOutputModelAssembler.toModel(cidade);
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cidade salvar(@RequestBody @Valid Cidade cidade) {
-		return cadastroCidadeService.salvar(cidade);
+	public CidadeOutputModel salvar(@RequestBody @Valid CidadeInputModel cidadeInputModel) {
+		Cidade cidade = cidadeInputDisassembler.toDomainObject(cidadeInputModel);
+		return cidadeOutputModelAssembler.toModel(cadastroCidadeService.salvar(cidade));
 	}
 	
 	@PutMapping("/{id}")
-	public Cidade actualizar(@RequestBody @Valid Cidade cidade, @PathVariable Long id) {
-		return cadastroCidadeService.actualizar(cidade, id);
+	public CidadeOutputModel actualizar(@RequestBody @Valid CidadeInputModel cidadeInpuModel, @PathVariable Long id) {
+		Cidade cidade = cidadeInputDisassembler.toDomainObject(cidadeInpuModel);
+		cidade = cadastroCidadeService.actualizar(cidade, id);
+		
+		return cidadeOutputModelAssembler.toModel(cidade);
 	}
 	
 	@DeleteMapping("/{id}")

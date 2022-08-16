@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mucanze.algafood.domain.exception.CozinhaInexistenteException;
 import com.mucanze.algafood.domain.exception.EntidadeEmUsoException;
@@ -42,6 +43,19 @@ public class CadastroRestauranteService {
 		//BeanUtils.copyProperties(restaurante, restauranteRetornado, "id", "formasPagamento", "dataCadastro");
 		
 		return salvar(restaurante);
+	}
+	
+	@Transactional
+	public void activar(Long restauranteId) {
+		Restaurante restaurante = buscarPorId(restauranteId);
+		restaurante.activar();
+	}
+	
+	
+	@Transactional
+	public void inactivar(Long restauranteId) {
+		Restaurante restaurante = buscarPorId(restauranteId);
+		restaurante.inactivar();
 	}
 	
 	public void remover(Long id) {

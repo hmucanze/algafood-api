@@ -77,6 +77,18 @@ public class RestauranteController {
 		return restauranteOutputModelAssembler.toModel(restauranteRetornado);	
 	}
 	
+	@PutMapping("/{restauranteId}/activo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void activar(@PathVariable Long restauranteId) {
+		cadastroRestauranteService.activar(restauranteId);
+	}
+	
+	@DeleteMapping("/{restauranteId}/inactivo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void inactivar(@PathVariable Long restauranteId) {
+		cadastroRestauranteService.inactivar(restauranteId);
+	}
+	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {
