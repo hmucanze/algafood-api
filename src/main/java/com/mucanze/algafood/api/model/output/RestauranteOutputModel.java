@@ -15,5 +15,6 @@ public class RestauranteOutputModel {
 	private Boolean activo;
 	private Boolean aberto;
 	private CozinhaOutputModel cozinha;
+	private EnderecoOutputModel endereco;
 
 }
