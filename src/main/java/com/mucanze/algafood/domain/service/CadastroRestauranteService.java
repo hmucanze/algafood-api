@@ -6,10 +6,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mucanze.algafood.domain.exception.CozinhaInexistenteException;
 import com.mucanze.algafood.domain.exception.EntidadeEmUsoException;
+import com.mucanze.algafood.domain.exception.EntidadeInexistenteException;
 import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.exception.RestauranteInexistenteException;
+import com.mucanze.algafood.domain.model.Cidade;
 import com.mucanze.algafood.domain.model.Cozinha;
 import com.mucanze.algafood.domain.model.Restaurante;
 import com.mucanze.algafood.domain.repository.RestauranteRepository;
@@ -26,14 +27,20 @@ public class CadastroRestauranteService {
 	@Autowired
 	private CadastroCozinhaService cadastroCozinhaService;
 	
+	@Autowired
+	private CadastroCidadeService cadastroCidadeService;
+	
 	public Restaurante salvar(Restaurante restaurante) {
 		try {
 			Cozinha cozinha = cadastroCozinhaService.buscarPorId(restaurante.getCozinha().getId());
 			restaurante.setCozinha(cozinha);
+			
+			Cidade cidade = cadastroCidadeService.buscarPorId(restaurante.getEndereco().getCidade().getId());
+			restaurante.getEndereco().setCidade(cidade);
 			return restauranteRepository.save(restaurante);
-		} catch(CozinhaInexistenteException e) {
-			throw new NegocioException(
-					String.format("Não existe cadastro de cozinha com o identificador %d", restaurante.getCozinha().getId()));
+		} catch(EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+					//String.format("Não existe cadastro de cozinha com o identificador %d", restaurante.getCozinha().getId()));
 		}
 	}
 	

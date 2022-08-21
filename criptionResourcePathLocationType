@@ -1,0 +1,514 @@
+[33mcommit 1e4fff255cf2fd72518a0efa3535e6bf8b3edc66[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Thu Aug 18 13:59:06 2022 +0200
+
+    Adicionar endpoint sde Grupo
+    Criar repositório da entidade Grupo
+    Criar classe de serviço CadastroGrupoService
+    Criar classe de controller GrupoController
+    Criar classe de representação de saída de grupo GrupoOutputModel
+    Criar classe de representação de entrada GrupoInputModel
+    Criar classe de Assembler de GrupoOutputModel e Disassembler de GrupoInputModel
+    Adicionar validação nos atributos da classe do modelo de entrada do grupo GrupoInputModel
+    Subscrever a mensagem padrão do ResourceBundle do Bean Validation para a constraint NotBlank da propriedade nome da classe GrupoInputModel no ficheiro de mensagens messages.properties
+
+:000000 100644 0000000 78c69f3 A	src/main/java/com/mucanze/algafood/api/assembler/GrupoOutputModelAssembler.java
+:000000 100644 0000000 87fd078 A	src/main/java/com/mucanze/algafood/api/controller/GrupoController.java
+:000000 100644 0000000 b250d63 A	src/main/java/com/mucanze/algafood/api/model/input/GrupoInputModel.java
+:000000 100644 0000000 6614931 A	src/main/java/com/mucanze/algafood/api/model/input/GrupoInputModelDisassembler.java
+:000000 100644 0000000 bf9e90c A	src/main/java/com/mucanze/algafood/api/model/output/GrupoOutputModel.java
+:000000 100644 0000000 862a788 A	src/main/java/com/mucanze/algafood/domain/exception/GrupoInexistenteException.java
+:000000 100644 0000000 d018a24 A	src/main/java/com/mucanze/algafood/domain/repository/GrupoRepository.java
+:000000 100644 0000000 abfbbef A	src/main/java/com/mucanze/algafood/domain/service/CadastroGrupoService.java
+:100644 100644 81cd515 b5c3662 M	src/main/resources/db/testdata/afterMigrate.sql
+:100644 100644 305d5db ab9c754 M	src/main/resources/messages.properties
+
+[33mcommit cd718d1bf5c3659fca7c59615ee089cd3b721ce6[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Wed Aug 17 10:27:44 2022 +0200
+
+    Adicionar endereço no modelo de representação de Restaurante (RestauranteOutputModel)
+    Criar classe de representação de endereço, EndereçoOutputModel
+    Adicionar a classe EnderecoOutputModel na classe de representação do restaurante
+    Criar a classe de representação CidadeOutputResumoModel para representar Estado como uma String e não um objecto, de modo a tornar a representação de Restaurante menos complexa no ponto de vista de aninhação de objectos
+    Adicionar a classe CidadeOutputResumoModel na classe de representação de endereço EnderecoOutputModel
+    Alterar o nome da propriedade nomeEstado para estado na classe CidadeOutputModel
+    Criar o mapeamento da propriedade nome do estado dentro da classe Endereco para propriedade estado da classe CidadeOutputResumoModel dentro da classe EnderecoOutoutModel na configuração do ModelMapper
+
+:000000 100644 0000000 e1d34ef A	src/main/java/com/mucanze/algafood/api/model/output/CidadeOutputResumoModel.java
+:000000 100644 0000000 4d20ebd A	src/main/java/com/mucanze/algafood/api/model/output/EnderecoOutputModel.java
+:100644 100644 b1b13b3 c5a97b5 M	src/main/java/com/mucanze/algafood/api/model/output/RestauranteOutputModel.java
+:100644 100644 8fe1697 4e9f6f5 M	src/main/java/com/mucanze/algafood/core/modelmapper/ModelMapperConfig.java
+
+[33mcommit 058326bf6961c691fdc201c9d6c70c9618cc6da6[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Tue Aug 16 15:48:44 2022 +0200
+
+    Adicinar endpoint FormaPagamento
+    Criar repositório FormaPagamentoRepository pra ter acesso aos métodos de manipulação da base de dados
+    Criar classe de serviço CadastroFormaPagamentoService, para criar métodos de regras de negócio
+    Criar Exception de regra de negócio FormaPagamentoInexistenteException
+    Criar classe de controller FormaPagamentoController
+    Criar classes de representação de entrada FormaPagamentoInputModel e de representação de saída FormaPagamentoOutputModel
+    Criar classes de Assembler FormaPagamentoOutputAssembler e Disassembler FormaPagamentoInputDisassembler
+
+:000000 100644 0000000 f05addc A	src/main/java/com/mucanze/algafood/api/assembler/FormaPagamentoInputModelDisassembler.java
+:000000 100644 0000000 bd8cf7e A	src/main/java/com/mucanze/algafood/api/assembler/FormaPagamentoOutputModelAssembler.java
+:000000 100644 0000000 23e5da5 A	src/main/java/com/mucanze/algafood/api/controller/FormaPagamentoController.java
+:000000 100644 0000000 e08f135 A	src/main/java/com/mucanze/algafood/api/model/input/FormaPagamentoInputModel.java
+:000000 100644 0000000 7252c13 A	src/main/java/com/mucanze/algafood/api/model/output/FormaPagamentoOutputModel.java
+:000000 100644 0000000 3bc4159 A	src/main/java/com/mucanze/algafood/domain/exception/FormaPagamentoInexistenteException.java
+:000000 100644 0000000 cbe7f05 A	src/main/java/com/mucanze/algafood/domain/repository/FormaPagamentoRepository.java
+:000000 100644 0000000 a5fe162 A	src/main/java/com/mucanze/algafood/domain/service/CadastroFormaPagamentoService.java
+
+[33mcommit 2a7a932e21ec1ae9b65640bed98d748527fd248b[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Tue Aug 16 11:14:23 2022 +0200
+
+    Criar classe de representação de recurso Estado
+    Criar classe de representação de entrada de Estado
+    Criar classe de representação de saida EstadoOutputModel
+    Criar classe de Assembler de Estado e classe de Disassembler de EstadoInputModel
+    Refacrorar os métodos da classe de controller de Estado
+
+:000000 100644 0000000 a9a6cb6 A	src/main/java/com/mucanze/algafood/api/assembler/EstadoInputModelDisassembler.java
+:000000 100644 0000000 c610c78 A	src/main/java/com/mucanze/algafood/api/assembler/EstadoOutputModelAssembler.java
+:100644 100644 1e7fcb4 08bc54b M	src/main/java/com/mucanze/algafood/api/controller/EstadoController.java
+:000000 100644 0000000 e09bce6 A	src/main/java/com/mucanze/algafood/api/model/input/EstadoInputModel.java
+
+[33mcommit 0963b9e35b63a259c2a7409330145b9838bb147c[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Tue Aug 16 10:43:05 2022 +0200
+
+    Criar classes de modelo de representação de cozinha
+    Com o objectivo de disacoplar o modelo de domínio do modelo de representação dos recursos, criou-se a classe de CozinhaOutputModel e CozinhaInputModel
+    Criar classe de modelo de representação de saída de cozinha CozinhaOutputModel
+    Criar classe de modelo de representação de entrada de cozinha CozinhaInputModel
+    Criar classe de Assembler de Cozinha e classe de Disassembler de CozinhaInputModel
+    Refactorar os métodos do controller de Cozinha pra receberem CozinhaInputModel e retornarem CozinhaOutputModel ao invés de cozinha, com o intuito de não expor a nossa classe de domínio Cozinha
+
+:000000 100644 0000000 4337052 A	src/main/java/com/mucanze/algafood/api/assembler/CozinhaInputModelDisassembler.java
+:000000 100644 0000000 d59b36d A	src/main/java/com/mucanze/algafood/api/assembler/CozinhaOutputModelAssembler.java
+:100644 100644 08bc375 93822b0 M	src/main/java/com/mucanze/algafood/api/controller/CozinhaController.java
+:000000 100644 0000000 07b70f3 A	src/main/java/com/mucanze/algafood/api/model/input/CozinhaInputModel.java
+:100644 100644 75d71f4 7b0e6d2 M	src/main/java/com/mucanze/algafood/api/model/output/CozinhaOutputModel.java
+
+[33mcommit 70bcd526a69bd824ec0b8653370afa554f9b0289[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Tue Aug 16 09:44:14 2022 +0200
+
+    Criar Modelo de representação de Cidade
+    Assim como a entidade Restaurante, houve necessidade de criar o modelo de representação de Cidade e também refactorar alguns métodos nos controllers de cidade e de restaurante
+    Adicionar o modelo de representação de saída da entidade Cidade;
+    Adicionar o modelo de representação de entrada da entidade Cidade;
+    Criar as classes de Assembler de Cidade e Disassembler de CidadeInputModel
+    Refactorar o método de cópia do objecto RestauranteInputModel para Restaurante, atribuindo uma instância nova de cozinha ao objecto Restaurante
+
+:000000 100644 0000000 ad0a5c1 A	src/main/java/com/mucanze/algafood/api/assembler/CidadeInputDisassembler.java
+:000000 100644 0000000 653171a A	src/main/java/com/mucanze/algafood/api/assembler/CidadeOutputModelAssembler.java
+:100644 100644 c794307 b875bf3 M	src/main/java/com/mucanze/algafood/api/assembler/RestauranteInputDisassembler.java
+:100644 100644 6fdd3d6 b6b9d97 M	src/main/java/com/mucanze/algafood/api/controller/CidadeController.java
+:100644 100644 ed94a22 85a0f83 M	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+:000000 100644 0000000 ecde748 A	src/main/java/com/mucanze/algafood/api/model/input/CidadeInputModel.java
+:000000 100644 0000000 0c34f23 A	src/main/java/com/mucanze/algafood/api/model/input/EstadoIdInput.java
+:000000 100644 0000000 14f66cf A	src/main/java/com/mucanze/algafood/api/model/output/CidadeOutputModel.java
+:000000 100644 0000000 81b75ee A	src/main/java/com/mucanze/algafood/api/model/output/EstadoOutputModel.java
+:100644 100644 bb74ace 7d90a6d M	src/main/java/com/mucanze/algafood/domain/model/Restaurante.java
+:100644 100644 f982207 55cc5ed M	src/main/java/com/mucanze/algafood/domain/service/CadastroRestauranteService.java
+
+[33mcommit 2f563ae0cbc0d64eb7a7f2a9a2e170fbe54f4491[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Sat Aug 13 16:17:14 2022 +0200
+
+    Trabalhar com biblioteca ModelMapper
+    Na versão anterior, os métodos de assembler usavam muito código boiler plate, ou seja, a connvesão das classes de representação dos recursos para classes de domínio era feita de forma manual através de getters e setters.
+    Para resolver essa repetição cansativa de códigos, optou-se por optimizar esse processo através do uso da biblioteca ModelMapper
+    
+    Mudanças:
+    Adicionar a biblioteca do ModelMapper no POM
+    Configurar o Bean da classe ModelMapper
+    Alterar os métodos de consersão toModel e toDomainObject nas classes de assembler
+    Criar método de cópia de classe de representação de restaurante pra entidade Restaurante
+    Refactorar o método de actualização de restaurante pra usar o método de cópia através do ModelMapper, criado na classe de disassembler de restaurante ao invés da classe de BeanUtils
+
+:100644 100644 409d0c8 b2864c9 M	pom.xml
+:100644 100644 94aaa0e c794307 M	src/main/java/com/mucanze/algafood/api/assembler/RestauranteInputDisassembler.java
+:100644 100644 18503db d254044 M	src/main/java/com/mucanze/algafood/api/assembler/RestauranteOutputModelAssembler.java
+:100644 100644 962b45a ed94a22 M	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+:100644 100644 1539720 430816f M	src/main/java/com/mucanze/algafood/api/model/input/RestauranteInputModel.java
+:100644 100644 67cc8f0 b1b13b3 M	src/main/java/com/mucanze/algafood/api/model/output/RestauranteOutputModel.java
+:000000 100644 0000000 8fe1697 A	src/main/java/com/mucanze/algafood/core/modelmapper/ModelMapperConfig.java
+:100644 100644 075a842 f982207 M	src/main/java/com/mucanze/algafood/domain/service/CadastroRestauranteService.java
+
+[33mcommit b925a29cdfed5a10fbb91dac03cd2335e4361830[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Sat Aug 13 14:21:28 2022 +0200
+
+    Criar classes Assembler
+
+:000000 100644 0000000 94aaa0e A	src/main/java/com/mucanze/algafood/api/assembler/RestauranteInputDisassembler.java
+:000000 100644 0000000 18503db A	src/main/java/com/mucanze/algafood/api/assembler/RestauranteOutputModelAssembler.java
+:100644 100644 7681aff 962b45a M	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+
+[33mcommit a96940f93b39ec424e15fbfae36c86f3f2fea0d3[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Fri Aug 12 16:11:24 2022 +0200
+
+    Criar classe de representação de entrada de restaurante
+
+:100644 100644 cb12aae 7681aff M	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+:000000 100644 0000000 e0b19e4 A	src/main/java/com/mucanze/algafood/api/model/input/CozinhaIdInput.java
+:000000 100644 0000000 1539720 A	src/main/java/com/mucanze/algafood/api/model/input/RestauranteInputModel.java
+
+[33mcommit 4558a76d5af69ede3b71637640b7b6eb098afc08[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Fri Aug 12 15:33:29 2022 +0200
+
+    Criar classe de representação do restaurante
+    Antes a classe de domínio e de representação era a mesma, o que expunha detalhes da API, sem contar com tantas configurações que tinham que se fazer para representar os recursos sem expor a API
+
+:100644 100644 643bea3 cb12aae M	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+:000000 100644 0000000 75d71f4 A	src/main/java/com/mucanze/algafood/api/model/output/CozinhaOutputModel.java
+:000000 100644 0000000 67cc8f0 A	src/main/java/com/mucanze/algafood/api/model/output/RestauranteOutputModel.java
+
+[33mcommit 2c1bbdf77296418c297528f97ca207829ee39f93[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Fri Aug 12 14:58:37 2022 +0200
+
+    Primeiro commit
+
+:000000 100644 0000000 549e00a A	.gitignore
+:000000 100644 0000000 c1dd12f A	.mvn/wrapper/maven-wrapper.jar
+:000000 100644 0000000 b7cb93e A	.mvn/wrapper/maven-wrapper.properties
+:000000 100644 0000000 8a8fb22 A	mvnw
+:000000 100644 0000000 1d8ab01 A	mvnw.cmd
+:000000 100644 0000000 409d0c8 A	pom.xml
+:000000 100644 0000000 17f75ff A	src/main/java/com/mucanze/algafood/AlgafoodApiApplication.java
+:000000 100644 0000000 6fdd3d6 A	src/main/java/com/mucanze/algafood/api/controller/CidadeController.java
+:000000 100644 0000000 08bc375 A	src/main/java/com/mucanze/algafood/api/controller/CozinhaController.java
+:000000 100644 0000000 1e7fcb4 A	src/main/java/com/mucanze/algafood/api/controller/EstadoController.java
+:000000 100644 0000000 643bea3 A	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+:000000 100644 0000000 1b03017 A	src/main/java/com/mucanze/algafood/api/exceptionHandler/ApiExceptionHandler.java
+:000000 100644 0000000 0953047 A	src/main/java/com/mucanze/algafood/api/exceptionHandler/Problem.java
+:000000 100644 0000000 8a4dda4 A	src/main/java/com/mucanze/algafood/api/exceptionHandler/ProblemType.java
+:000000 100644 0000000 2d9bcb0 A	src/main/java/com/mucanze/algafood/api/model/CozinhasXMLWrapper.java
+:000000 100644 0000000 e5986aa A	src/main/java/com/mucanze/algafood/api/model/mixin/CidadeMixin.java
+:000000 100644 0000000 9bd179c A	src/main/java/com/mucanze/algafood/api/model/mixin/CozinhaMixin.java
+:000000 100644 0000000 bae7a45 A	src/main/java/com/mucanze/algafood/api/model/mixin/RestauranteMixin.java
+:000000 100644 0000000 4986fc3 A	src/main/java/com/mucanze/algafood/core/jackson/JacksonMixinModule.java
+:000000 100644 0000000 25aeba8 A	src/main/java/com/mucanze/algafood/core/validation/Groups.java
+:000000 100644 0000000 b8ad310 A	src/main/java/com/mucanze/algafood/core/validation/Multiplo.java
+:000000 100644 0000000 314a419 A	src/main/java/com/mucanze/algafood/core/validation/MultiploValidator.java
+:000000 100644 0000000 72b26ff A	src/main/java/com/mucanze/algafood/core/validation/ValidacaoException.java
+:000000 100644 0000000 8cee49a A	src/main/java/com/mucanze/algafood/core/validation/ValidationConfig.java
+:000000 100644 0000000 3effa00 A	src/main/java/com/mucanze/algafood/core/validation/ValorZeroIncluiDescricao.java
+:000000 100644 0000000 2c26ec5 A	src/main/java/com/mucanze/algafood/core/validation/ValorZeroIncluiDescricaoValidator.java
+:000000 100644 0000000 a34f393 A	src/main/java/com/mucanze/algafood/domain/exception/CidadeInexistenteException.java
+:000000 100644 0000000 60ca196 A	src/main/java/com/mucanze/algafood/domain/exception/CozinhaInexistenteException.java
+:000000 100644 0000000 5dffffe A	src/main/java/com/mucanze/algafood/domain/exception/EntidadeEmUsoException.java
+:000000 100644 0000000 2ce5459 A	src/main/java/com/mucanze/algafood/domain/exception/EntidadeInexistenteException.java
+:000000 100644 0000000 0b65a53 A	src/main/java/com/mucanze/algafood/domain/exception/EstadoInexistenteException.java
+:000000 100644 0000000 6b3392c A	src/main/java/com/mucanze/algafood/domain/exception/NegocioException.java
+:000000 100644 0000000 cd3ba12 A	src/main/java/com/mucanze/algafood/domain/exception/RestauranteInexistenteException.java
+:000000 100644 0000000 f9d8194 A	src/main/java/com/mucanze/algafood/domain/model/Cidade.java
+:000000 100644 0000000 5a3188a A	src/main/java/com/mucanze/algafood/domain/model/Cozinha.java
+:000000 100644 0000000 a7baac0 A	src/main/java/com/mucanze/algafood/domain/model/Endereco.java
+:000000 100644 0000000 6e81c72 A	src/main/java/com/mucanze/algafood/domain/model/Estado.java
+:000000 100644 0000000 00a0fc4 A	src/main/java/com/mucanze/algafood/domain/model/FormaPagamento.java
+:000000 100644 0000000 cc45970 A	src/main/java/com/mucanze/algafood/domain/model/Grupo.java
+:000000 100644 0000000 83773a9 A	src/main/java/com/mucanze/algafood/domain/model/ItemPedido.java
+:000000 100644 0000000 3e6d8fb A	src/main/java/com/mucanze/algafood/domain/model/Pedido.java
+:000000 100644 0000000 c777492 A	src/main/java/com/mucanze/algafood/domain/model/Permissao.java
+:000000 100644 0000000 64f6166 A	src/main/java/com/mucanze/algafood/domain/model/Produto.java
+:000000 100644 0000000 bb74ace A	src/main/java/com/mucanze/algafood/domain/model/Restaurante.java
+:000000 100644 0000000 4d48ca6 A	src/main/java/com/mucanze/algafood/domain/model/StatusPedido.java
+:000000 100644 0000000 3da15df A	src/main/java/com/mucanze/algafood/domain/model/Usuario.java
+:000000 100644 0000000 7208eb6 A	src/main/java/com/mucanze/algafood/domain/repository/CidadeRepository.java
+:000000 100644 0000000 2960676 A	src/main/java/com/mucanze/algafood/domain/repository/CozinhaRepository.java
+:000000 100644 0000000 1ff526a A	src/main/java/com/mucanze/algafood/domain/repository/EstadoRepository.java
+:000000 100644 0000000 c301e17 A	src/main/java/com/mucanze/algafood/domain/repository/RestauranteRepository.java
+:000000 100644 0000000 b971b2f A	src/main/java/com/mucanze/algafood/domain/repository/RestauranteRepositoryQueries.java
+:000000 100644 0000000 b3e99ce A	src/main/java/com/mucanze/algafood/domain/service/CadastroCidadeService.java
+:000000 100644 0000000 4fc636d A	src/main/java/com/mucanze/algafood/domain/service/CadastroCozinhaService.java
+:000000 100644 0000000 46e0bbc A	src/main/java/com/mucanze/algafood/domain/service/CadastroEstadoService.java
+:000000 100644 0000000 075a842 A	src/main/java/com/mucanze/algafood/domain/service/CadastroRestauranteService.java
+:000000 100644 0000000 6cc1f99 A	src/main/java/com/mucanze/algafood/infrastruture/repository/RestauranteRepositoryImpl.java
+:000000 100644 0000000 f010d28 A	src/main/resources/META-INF/orm.xml
+:000000 100644 0000000 6fbeaa9 A	src/main/resources/application.properties
+:000000 100644 0000000 90c4571 A	src/main/resources/db/migration/V001__criacao_inicial.sql
+:000000 100644 0000000 31331fe A	src/main/resources/db/migration/V002__criar_tabela_cidade.sql
+:000000 100644 0000000 8585f3e A	src/main/resources/db/migration/V003__criar_tabela_estado.sql
+:000000 100644 0000000 8003c25 A	src/main/resources/db/migration/V004__criar_varias_tabelas.sql
+:000000 100644 0000000 67d0e66 A	src/main/resources/db/migration/V005__criar_tabela_pedido_item_pedido.sql
+:000000 100644 0000000 81cd515 A	src/main/resources/db/testdata/afterMigrate.sql
+:000000 100644 0000000 0941305 A	src/main/resources/ddl.sql
+:000000 100644 0000000 0304043 A	src/main/resources/import.sql
+:000000 100644 0000000 305d5db A	src/main/resources/messages.properties
+:000000 100644 0000000 16c5ee3 A	src/test/java/com/mucanze/algafoodapi/CadastroCozinhaIT.java
+:000000 100644 0000000 4c97e12 A	src/test/java/com/mucanze/algafoodapi/CadastroRestauranteIT.java
+:000000 100644 0000000 5f314c7 A	src/test/java/com/mucanze/algafoodapi/util/DatabaseCleaner.java
+:000000 100644 0000000 b1fbca1 A	src/test/java/com/mucanze/algafoodapi/util/ResourceUtils.java
+:000000 100644 0000000 9b18f15 A	src/test/java/com/mucanze/algafoodapi/util/TestConfig.java
+:000000 100644 0000000 2be8c6b A	src/test/resources/application-test.properties
+:000000 100644 0000000 069adc4 A	src/test/resources/json/correcto/cozinha_mocambicana.json
+:000000 100644 0000000 8978d0e A	src/test/resources/json/correcto/restaurante_new_york_barbecue.json
+:000000 100644 0000000 5945cf7 A	src/test/resources/json/incorrecto/restaurante_new_york_barbecue_cozinha_inexistente.json
+:000000 100644 0000000 5ab83a8 A	src/test/resources/json/incorrecto/restaurante_new_york_barbecue_sem_cozinha.json
+:000000 100644 0000000 9cc2656 A	src/test/resources/json/incorrecto/restaurante_new_york_barbecue_sem_frete.json
+[33mcommit 1e4fff255cf2fd72518a0efa3535e6bf8b3edc66[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Thu Aug 18 13:59:06 2022 +0200
+
+    Adicionar endpoint sde Grupo
+    Criar repositório da entidade Grupo
+    Criar classe de serviço CadastroGrupoService
+    Criar classe de controller GrupoController
+    Criar classe de representação de saída de grupo GrupoOutputModel
+    Criar classe de representação de entrada GrupoInputModel
+    Criar classe de Assembler de GrupoOutputModel e Disassembler de GrupoInputModel
+    Adicionar validação nos atributos da classe do modelo de entrada do grupo GrupoInputModel
+    Subscrever a mensagem padrão do ResourceBundle do Bean Validation para a constraint NotBlank da propriedade nome da classe GrupoInputModel no ficheiro de mensagens messages.properties
+
+:000000 100644 0000000 78c69f3 A	src/main/java/com/mucanze/algafood/api/assembler/GrupoOutputModelAssembler.java
+:000000 100644 0000000 87fd078 A	src/main/java/com/mucanze/algafood/api/controller/GrupoController.java
+:000000 100644 0000000 b250d63 A	src/main/java/com/mucanze/algafood/api/model/input/GrupoInputModel.java
+:000000 100644 0000000 6614931 A	src/main/java/com/mucanze/algafood/api/model/input/GrupoInputModelDisassembler.java
+:000000 100644 0000000 bf9e90c A	src/main/java/com/mucanze/algafood/api/model/output/GrupoOutputModel.java
+:000000 100644 0000000 862a788 A	src/main/java/com/mucanze/algafood/domain/exception/GrupoInexistenteException.java
+:000000 100644 0000000 d018a24 A	src/main/java/com/mucanze/algafood/domain/repository/GrupoRepository.java
+:000000 100644 0000000 abfbbef A	src/main/java/com/mucanze/algafood/domain/service/CadastroGrupoService.java
+:100644 100644 81cd515 b5c3662 M	src/main/resources/db/testdata/afterMigrate.sql
+:100644 100644 305d5db ab9c754 M	src/main/resources/messages.properties
+
+[33mcommit cd718d1bf5c3659fca7c59615ee089cd3b721ce6[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Wed Aug 17 10:27:44 2022 +0200
+
+    Adicionar endereço no modelo de representação de Restaurante (RestauranteOutputModel)
+    Criar classe de representação de endereço, EndereçoOutputModel
+    Adicionar a classe EnderecoOutputModel na classe de representação do restaurante
+    Criar a classe de representação CidadeOutputResumoModel para representar Estado como uma String e não um objecto, de modo a tornar a representação de Restaurante menos complexa no ponto de vista de aninhação de objectos
+    Adicionar a classe CidadeOutputResumoModel na classe de representação de endereço EnderecoOutputModel
+    Alterar o nome da propriedade nomeEstado para estado na classe CidadeOutputModel
+    Criar o mapeamento da propriedade nome do estado dentro da classe Endereco para propriedade estado da classe CidadeOutputResumoModel dentro da classe EnderecoOutoutModel na configuração do ModelMapper
+
+:000000 100644 0000000 e1d34ef A	src/main/java/com/mucanze/algafood/api/model/output/CidadeOutputResumoModel.java
+:000000 100644 0000000 4d20ebd A	src/main/java/com/mucanze/algafood/api/model/output/EnderecoOutputModel.java
+:100644 100644 b1b13b3 c5a97b5 M	src/main/java/com/mucanze/algafood/api/model/output/RestauranteOutputModel.java
+:100644 100644 8fe1697 4e9f6f5 M	src/main/java/com/mucanze/algafood/core/modelmapper/ModelMapperConfig.java
+
+[33mcommit 058326bf6961c691fdc201c9d6c70c9618cc6da6[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Tue Aug 16 15:48:44 2022 +0200
+
+    Adicinar endpoint FormaPagamento
+    Criar repositório FormaPagamentoRepository pra ter acesso aos métodos de manipulação da base de dados
+    Criar classe de serviço CadastroFormaPagamentoService, para criar métodos de regras de negócio
+    Criar Exception de regra de negócio FormaPagamentoInexistenteException
+    Criar classe de controller FormaPagamentoController
+    Criar classes de representação de entrada FormaPagamentoInputModel e de representação de saída FormaPagamentoOutputModel
+    Criar classes de Assembler FormaPagamentoOutputAssembler e Disassembler FormaPagamentoInputDisassembler
+
+:000000 100644 0000000 f05addc A	src/main/java/com/mucanze/algafood/api/assembler/FormaPagamentoInputModelDisassembler.java
+:000000 100644 0000000 bd8cf7e A	src/main/java/com/mucanze/algafood/api/assembler/FormaPagamentoOutputModelAssembler.java
+:000000 100644 0000000 23e5da5 A	src/main/java/com/mucanze/algafood/api/controller/FormaPagamentoController.java
+:000000 100644 0000000 e08f135 A	src/main/java/com/mucanze/algafood/api/model/input/FormaPagamentoInputModel.java
+:000000 100644 0000000 7252c13 A	src/main/java/com/mucanze/algafood/api/model/output/FormaPagamentoOutputModel.java
+:000000 100644 0000000 3bc4159 A	src/main/java/com/mucanze/algafood/domain/exception/FormaPagamentoInexistenteException.java
+:000000 100644 0000000 cbe7f05 A	src/main/java/com/mucanze/algafood/domain/repository/FormaPagamentoRepository.java
+:000000 100644 0000000 a5fe162 A	src/main/java/com/mucanze/algafood/domain/service/CadastroFormaPagamentoService.java
+
+[33mcommit 2a7a932e21ec1ae9b65640bed98d748527fd248b[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Tue Aug 16 11:14:23 2022 +0200
+
+    Criar classe de representação de recurso Estado
+    Criar classe de representação de entrada de Estado
+    Criar classe de representação de saida EstadoOutputModel
+    Criar classe de Assembler de Estado e classe de Disassembler de EstadoInputModel
+    Refacrorar os métodos da classe de controller de Estado
+
+:000000 100644 0000000 a9a6cb6 A	src/main/java/com/mucanze/algafood/api/assembler/EstadoInputModelDisassembler.java
+:000000 100644 0000000 c610c78 A	src/main/java/com/mucanze/algafood/api/assembler/EstadoOutputModelAssembler.java
+:100644 100644 1e7fcb4 08bc54b M	src/main/java/com/mucanze/algafood/api/controller/EstadoController.java
+:000000 100644 0000000 e09bce6 A	src/main/java/com/mucanze/algafood/api/model/input/EstadoInputModel.java
+
+[33mcommit 0963b9e35b63a259c2a7409330145b9838bb147c[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Tue Aug 16 10:43:05 2022 +0200
+
+    Criar classes de modelo de representação de cozinha
+    Com o objectivo de disacoplar o modelo de domínio do modelo de representação dos recursos, criou-se a classe de CozinhaOutputModel e CozinhaInputModel
+    Criar classe de modelo de representação de saída de cozinha CozinhaOutputModel
+    Criar classe de modelo de representação de entrada de cozinha CozinhaInputModel
+    Criar classe de Assembler de Cozinha e classe de Disassembler de CozinhaInputModel
+    Refactorar os métodos do controller de Cozinha pra receberem CozinhaInputModel e retornarem CozinhaOutputModel ao invés de cozinha, com o intuito de não expor a nossa classe de domínio Cozinha
+
+:000000 100644 0000000 4337052 A	src/main/java/com/mucanze/algafood/api/assembler/CozinhaInputModelDisassembler.java
+:000000 100644 0000000 d59b36d A	src/main/java/com/mucanze/algafood/api/assembler/CozinhaOutputModelAssembler.java
+:100644 100644 08bc375 93822b0 M	src/main/java/com/mucanze/algafood/api/controller/CozinhaController.java
+:000000 100644 0000000 07b70f3 A	src/main/java/com/mucanze/algafood/api/model/input/CozinhaInputModel.java
+:100644 100644 75d71f4 7b0e6d2 M	src/main/java/com/mucanze/algafood/api/model/output/CozinhaOutputModel.java
+
+[33mcommit 70bcd526a69bd824ec0b8653370afa554f9b0289[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Tue Aug 16 09:44:14 2022 +0200
+
+    Criar Modelo de representação de Cidade
+    Assim como a entidade Restaurante, houve necessidade de criar o modelo de representação de Cidade e também refactorar alguns métodos nos controllers de cidade e de restaurante
+    Adicionar o modelo de representação de saída da entidade Cidade;
+    Adicionar o modelo de representação de entrada da entidade Cidade;
+    Criar as classes de Assembler de Cidade e Disassembler de CidadeInputModel
+    Refactorar o método de cópia do objecto RestauranteInputModel para Restaurante, atribuindo uma instância nova de cozinha ao objecto Restaurante
+
+:000000 100644 0000000 ad0a5c1 A	src/main/java/com/mucanze/algafood/api/assembler/CidadeInputDisassembler.java
+:000000 100644 0000000 653171a A	src/main/java/com/mucanze/algafood/api/assembler/CidadeOutputModelAssembler.java
+:100644 100644 c794307 b875bf3 M	src/main/java/com/mucanze/algafood/api/assembler/RestauranteInputDisassembler.java
+:100644 100644 6fdd3d6 b6b9d97 M	src/main/java/com/mucanze/algafood/api/controller/CidadeController.java
+:100644 100644 ed94a22 85a0f83 M	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+:000000 100644 0000000 ecde748 A	src/main/java/com/mucanze/algafood/api/model/input/CidadeInputModel.java
+:000000 100644 0000000 0c34f23 A	src/main/java/com/mucanze/algafood/api/model/input/EstadoIdInput.java
+:000000 100644 0000000 14f66cf A	src/main/java/com/mucanze/algafood/api/model/output/CidadeOutputModel.java
+:000000 100644 0000000 81b75ee A	src/main/java/com/mucanze/algafood/api/model/output/EstadoOutputModel.java
+:100644 100644 bb74ace 7d90a6d M	src/main/java/com/mucanze/algafood/domain/model/Restaurante.java
+:100644 100644 f982207 55cc5ed M	src/main/java/com/mucanze/algafood/domain/service/CadastroRestauranteService.java
+
+[33mcommit 2f563ae0cbc0d64eb7a7f2a9a2e170fbe54f4491[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Sat Aug 13 16:17:14 2022 +0200
+
+    Trabalhar com biblioteca ModelMapper
+    Na versão anterior, os métodos de assembler usavam muito código boiler plate, ou seja, a connvesão das classes de representação dos recursos para classes de domínio era feita de forma manual através de getters e setters.
+    Para resolver essa repetição cansativa de códigos, optou-se por optimizar esse processo através do uso da biblioteca ModelMapper
+    
+    Mudanças:
+    Adicionar a biblioteca do ModelMapper no POM
+    Configurar o Bean da classe ModelMapper
+    Alterar os métodos de consersão toModel e toDomainObject nas classes de assembler
+    Criar método de cópia de classe de representação de restaurante pra entidade Restaurante
+    Refactorar o método de actualização de restaurante pra usar o método de cópia através do ModelMapper, criado na classe de disassembler de restaurante ao invés da classe de BeanUtils
+
+:100644 100644 409d0c8 b2864c9 M	pom.xml
+:100644 100644 94aaa0e c794307 M	src/main/java/com/mucanze/algafood/api/assembler/RestauranteInputDisassembler.java
+:100644 100644 18503db d254044 M	src/main/java/com/mucanze/algafood/api/assembler/RestauranteOutputModelAssembler.java
+:100644 100644 962b45a ed94a22 M	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+:100644 100644 1539720 430816f M	src/main/java/com/mucanze/algafood/api/model/input/RestauranteInputModel.java
+:100644 100644 67cc8f0 b1b13b3 M	src/main/java/com/mucanze/algafood/api/model/output/RestauranteOutputModel.java
+:000000 100644 0000000 8fe1697 A	src/main/java/com/mucanze/algafood/core/modelmapper/ModelMapperConfig.java
+:100644 100644 075a842 f982207 M	src/main/java/com/mucanze/algafood/domain/service/CadastroRestauranteService.java
+
+[33mcommit b925a29cdfed5a10fbb91dac03cd2335e4361830[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Sat Aug 13 14:21:28 2022 +0200
+
+    Criar classes Assembler
+
+:000000 100644 0000000 94aaa0e A	src/main/java/com/mucanze/algafood/api/assembler/RestauranteInputDisassembler.java
+:000000 100644 0000000 18503db A	src/main/java/com/mucanze/algafood/api/assembler/RestauranteOutputModelAssembler.java
+:100644 100644 7681aff 962b45a M	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+
+[33mcommit a96940f93b39ec424e15fbfae36c86f3f2fea0d3[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Fri Aug 12 16:11:24 2022 +0200
+
+    Criar classe de representação de entrada de restaurante
+
+:100644 100644 cb12aae 7681aff M	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+:000000 100644 0000000 e0b19e4 A	src/main/java/com/mucanze/algafood/api/model/input/CozinhaIdInput.java
+:000000 100644 0000000 1539720 A	src/main/java/com/mucanze/algafood/api/model/input/RestauranteInputModel.java
+
+[33mcommit 4558a76d5af69ede3b71637640b7b6eb098afc08[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Fri Aug 12 15:33:29 2022 +0200
+
+    Criar classe de representação do restaurante
+    Antes a classe de domínio e de representação era a mesma, o que expunha detalhes da API, sem contar com tantas configurações que tinham que se fazer para representar os recursos sem expor a API
+
+:100644 100644 643bea3 cb12aae M	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+:000000 100644 0000000 75d71f4 A	src/main/java/com/mucanze/algafood/api/model/output/CozinhaOutputModel.java
+:000000 100644 0000000 67cc8f0 A	src/main/java/com/mucanze/algafood/api/model/output/RestauranteOutputModel.java
+
+[33mcommit 2c1bbdf77296418c297528f97ca207829ee39f93[m
+Author: hmucanze19 <herminiomucanze@gmail.com>
+Date:   Fri Aug 12 14:58:37 2022 +0200
+
+    Primeiro commit
+
+:000000 100644 0000000 549e00a A	.gitignore
+:000000 100644 0000000 c1dd12f A	.mvn/wrapper/maven-wrapper.jar
+:000000 100644 0000000 b7cb93e A	.mvn/wrapper/maven-wrapper.properties
+:000000 100644 0000000 8a8fb22 A	mvnw
+:000000 100644 0000000 1d8ab01 A	mvnw.cmd
+:000000 100644 0000000 409d0c8 A	pom.xml
+:000000 100644 0000000 17f75ff A	src/main/java/com/mucanze/algafood/AlgafoodApiApplication.java
+:000000 100644 0000000 6fdd3d6 A	src/main/java/com/mucanze/algafood/api/controller/CidadeController.java
+:000000 100644 0000000 08bc375 A	src/main/java/com/mucanze/algafood/api/controller/CozinhaController.java
+:000000 100644 0000000 1e7fcb4 A	src/main/java/com/mucanze/algafood/api/controller/EstadoController.java
+:000000 100644 0000000 643bea3 A	src/main/java/com/mucanze/algafood/api/controller/RestauranteController.java
+:000000 100644 0000000 1b03017 A	src/main/java/com/mucanze/algafood/api/exceptionHandler/ApiExceptionHandler.java
+:000000 100644 0000000 0953047 A	src/main/java/com/mucanze/algafood/api/exceptionHandler/Problem.java
+:000000 100644 0000000 8a4dda4 A	src/main/java/com/mucanze/algafood/api/exceptionHandler/ProblemType.java
+:000000 100644 0000000 2d9bcb0 A	src/main/java/com/mucanze/algafood/api/model/CozinhasXMLWrapper.java
+:000000 100644 0000000 e5986aa A	src/main/java/com/mucanze/algafood/api/model/mixin/CidadeMixin.java
+:000000 100644 0000000 9bd179c A	src/main/java/com/mucanze/algafood/api/model/mixin/CozinhaMixin.java
+:000000 100644 0000000 bae7a45 A	src/main/java/com/mucanze/algafood/api/model/mixin/RestauranteMixin.java
+:000000 100644 0000000 4986fc3 A	src/main/java/com/mucanze/algafood/core/jackson/JacksonMixinModule.java
+:000000 100644 0000000 25aeba8 A	src/main/java/com/mucanze/algafood/core/validation/Groups.java
+:000000 100644 0000000 b8ad310 A	src/main/java/com/mucanze/algafood/core/validation/Multiplo.java
+:000000 100644 0000000 314a419 A	src/main/java/com/mucanze/algafood/core/validation/MultiploValidator.java
+:000000 100644 0000000 72b26ff A	src/main/java/com/mucanze/algafood/core/validation/ValidacaoException.java
+:000000 100644 0000000 8cee49a A	src/main/java/com/mucanze/algafood/core/validation/ValidationConfig.java
+:000000 100644 0000000 3effa00 A	src/main/java/com/mucanze/algafood/core/validation/ValorZeroIncluiDescricao.java
+:000000 100644 0000000 2c26ec5 A	src/main/java/com/mucanze/algafood/core/validation/ValorZeroIncluiDescricaoValidator.java
+:000000 100644 0000000 a34f393 A	src/main/java/com/mucanze/algafood/domain/exception/CidadeInexistenteException.java
+:000000 100644 0000000 60ca196 A	src/main/java/com/mucanze/algafood/domain/exception/CozinhaInexistenteException.java
+:000000 100644 0000000 5dffffe A	src/main/java/com/mucanze/algafood/domain/exception/EntidadeEmUsoException.java
+:000000 100644 0000000 2ce5459 A	src/main/java/com/mucanze/algafood/domain/exception/EntidadeInexistenteException.java
+:000000 100644 0000000 0b65a53 A	src/main/java/com/mucanze/algafood/domain/exception/EstadoInexistenteException.java
+:000000 100644 0000000 6b3392c A	src/main/java/com/mucanze/algafood/domain/exception/NegocioException.java
+:000000 100644 0000000 cd3ba12 A	src/main/java/com/mucanze/algafood/domain/exception/RestauranteInexistenteException.java
+:000000 100644 0000000 f9d8194 A	src/main/java/com/mucanze/algafood/domain/model/Cidade.java
+:000000 100644 0000000 5a3188a A	src/main/java/com/mucanze/algafood/domain/model/Cozinha.java
+:000000 100644 0000000 a7baac0 A	src/main/java/com/mucanze/algafood/domain/model/Endereco.java
+:000000 100644 0000000 6e81c72 A	src/main/java/com/mucanze/algafood/domain/model/Estado.java
+:000000 100644 0000000 00a0fc4 A	src/main/java/com/mucanze/algafood/domain/model/FormaPagamento.java
+:000000 100644 0000000 cc45970 A	src/main/java/com/mucanze/algafood/domain/model/Grupo.java
+:000000 100644 0000000 83773a9 A	src/main/java/com/mucanze/algafood/domain/model/ItemPedido.java
+:000000 100644 0000000 3e6d8fb A	src/main/java/com/mucanze/algafood/domain/model/Pedido.java
+:000000 100644 0000000 c777492 A	src/main/java/com/mucanze/algafood/domain/model/Permissao.java
+:000000 100644 0000000 64f6166 A	src/main/java/com/mucanze/algafood/domain/model/Produto.java
+:000000 100644 0000000 bb74ace A	src/main/java/com/mucanze/algafood/domain/model/Restaurante.java
+:000000 100644 0000000 4d48ca6 A	src/main/java/com/mucanze/algafood/domain/model/StatusPedido.java
+:000000 100644 0000000 3da15df A	src/main/java/com/mucanze/algafood/domain/model/Usuario.java
+:000000 100644 0000000 7208eb6 A	src/main/java/com/mucanze/algafood/domain/repository/CidadeRepository.java
+:000000 100644 0000000 2960676 A	src/main/java/com/mucanze/algafood/domain/repository/CozinhaRepository.java
+:000000 100644 0000000 1ff526a A	src/main/java/com/mucanze/algafood/domain/repository/EstadoRepository.java
+:000000 100644 0000000 c301e17 A	src/main/java/com/mucanze/algafood/domain/repository/RestauranteRepository.java
+:000000 100644 0000000 b971b2f A	src/main/java/com/mucanze/algafood/domain/repository/RestauranteRepositoryQueries.java
+:000000 100644 0000000 b3e99ce A	src/main/java/com/mucanze/algafood/domain/service/CadastroCidadeService.java
+:000000 100644 0000000 4fc636d A	src/main/java/com/mucanze/algafood/domain/service/CadastroCozinhaService.java
+:000000 100644 0000000 46e0bbc A	src/main/java/com/mucanze/algafood/domain/service/CadastroEstadoService.java
+:000000 100644 0000000 075a842 A	src/main/java/com/mucanze/algafood/domain/service/CadastroRestauranteService.java
+:000000 100644 0000000 6cc1f99 A	src/main/java/com/mucanze/algafood/infrastruture/repository/RestauranteRepositoryImpl.java
+:000000 100644 0000000 f010d28 A	src/main/resources/META-INF/orm.xml
+:000000 100644 0000000 6fbeaa9 A	src/main/resources/application.properties
+:000000 100644 0000000 90c4571 A	src/main/resources/db/migration/V001__criacao_inicial.sql
+:000000 100644 0000000 31331fe A	src/main/resources/db/migration/V002__criar_tabela_cidade.sql
+:000000 100644 0000000 8585f3e A	src/main/resources/db/migration/V003__criar_tabela_estado.sql
+:000000 100644 0000000 8003c25 A	src/main/resources/db/migration/V004__criar_varias_tabelas.sql
+:000000 100644 0000000 67d0e66 A	src/main/resources/db/migration/V005__criar_tabela_pedido_item_pedido.sql
+:000000 100644 0000000 81cd515 A	src/main/resources/db/testdata/afterMigrate.sql
+:000000 100644 0000000 0941305 A	src/main/resources/ddl.sql
+:000000 100644 0000000 0304043 A	src/main/resources/import.sql
+:000000 100644 0000000 305d5db A	src/main/resources/messages.properties
+:000000 100644 0000000 16c5ee3 A	src/test/java/com/mucanze/algafoodapi/CadastroCozinhaIT.java
+:000000 100644 0000000 4c97e12 A	src/test/java/com/mucanze/algafoodapi/CadastroRestauranteIT.java
+:000000 100644 0000000 5f314c7 A	src/test/java/com/mucanze/algafoodapi/util/DatabaseCleaner.java
+:000000 100644 0000000 b1fbca1 A	src/test/java/com/mucanze/algafoodapi/util/ResourceUtils.java
+:000000 100644 0000000 9b18f15 A	src/test/java/com/mucanze/algafoodapi/util/TestConfig.java
+:000000 100644 0000000 2be8c6b A	src/test/resources/application-test.properties
+:000000 100644 0000000 069adc4 A	src/test/resources/json/correcto/cozinha_mocambicana.json
+:000000 100644 0000000 8978d0e A	src/test/resources/json/correcto/restaurante_new_york_barbecue.json
+:000000 100644 0000000 5945cf7 A	src/test/resources/json/incorrecto/restaurante_new_york_barbecue_cozinha_inexistente.json
+:000000 100644 0000000 5ab83a8 A	src/test/resources/json/incorrecto/restaurante_new_york_barbecue_sem_cozinha.json
+:000000 100644 0000000 9cc2656 A	src/test/resources/json/incorrecto/restaurante_new_york_barbecue_sem_frete.json
