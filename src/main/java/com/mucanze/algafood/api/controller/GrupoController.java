@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mucanze.algafood.api.assembler.GrupoInputModelDisassembler;
 import com.mucanze.algafood.api.assembler.GrupoOutputModelAssembler;
 import com.mucanze.algafood.api.model.input.GrupoInputModel;
-import com.mucanze.algafood.api.model.input.GrupoInputModelDisassembler;
 import com.mucanze.algafood.api.model.output.GrupoOutputModel;
 import com.mucanze.algafood.domain.model.Grupo;
 import com.mucanze.algafood.domain.repository.GrupoRepository;
