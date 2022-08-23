@@ -1,5 +1,7 @@
 package com.mucanze.algafood.domain.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,6 +24,12 @@ public class CadastroUsuarioService {
 	private UsuarioRepository usuarioRepository;
 	
 	public Usuario salvar(Usuario usuario) {
+	 	Optional<Usuario> usuarioRetornado = usuarioRepository.findByEmail(usuario.getEmail());
+	 	
+	 	if(usuarioRetornado.isPresent() && !usuarioRetornado.get().equals(usuario)) {
+	 		throw new NegocioException(String.format("Já existe um usuário com email %s", usuario.getEmail()));
+	 	}
+	 	
 		return usuarioRepository.save(usuario);
 	}
 	
