@@ -12,6 +12,7 @@ import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.exception.RestauranteInexistenteException;
 import com.mucanze.algafood.domain.model.Cidade;
 import com.mucanze.algafood.domain.model.Cozinha;
+import com.mucanze.algafood.domain.model.FormaPagamento;
 import com.mucanze.algafood.domain.model.Restaurante;
 import com.mucanze.algafood.domain.repository.RestauranteRepository;
 
@@ -29,6 +30,9 @@ public class CadastroRestauranteService {
 	
 	@Autowired
 	private CadastroCidadeService cadastroCidadeService;
+	
+	@Autowired
+	private CadastroFormaPagamentoService cadastroFormaPagamentoService;
 	
 	public Restaurante salvar(Restaurante restaurante) {
 		try {
@@ -74,6 +78,24 @@ public class CadastroRestauranteService {
 			throw new EntidadeEmUsoException(
 					String.format(MSG_CIDADE_EM_USO, id));
 		}
+	}
+	
+	@Transactional
+	public void associarFormaPagamento(Long restauranteId, Long formaPagamentoId) {
+		Restaurante restaurante = buscarPorId(restauranteId);
+		
+		FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscarPorId(formaPagamentoId);
+		System.out.println(formaPagamento.getDescricao());
+		restaurante.associarFormaPagamento(formaPagamento);
+	}
+	
+	@Transactional
+	public void desassociarFormaPagamento(Long restauranteId, Long formaPagamentoId) {
+		Restaurante restaurante = buscarPorId(restauranteId);
+		
+		FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscarPorId(formaPagamentoId);
+		
+		restaurante.desassociarFormaPagamento(formaPagamento);
 	}
 	
 	public Restaurante buscarPorId(Long id) {

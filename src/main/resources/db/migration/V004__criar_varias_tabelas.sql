@@ -88,7 +88,7 @@ foreign key (endereco_cidade_id) references cidade (id);
 ALTER TABLE restaurante_forma_pagamento ADD CONSTRAINT fk_rest_forma_pagto_forma_pagto
 FOREIGN KEY (forma_pagamento_id) REFERENCES forma_pagamento (id);
 
-ALTER TABLE restaurante_forma_pagamento ADD CONSTRAINT FKa30vowfejemkw7whjvr8pryvj
+ALTER TABLE restaurante_forma_pagamento ADD CONSTRAINT fk_rest_forma_pagto_restaurante
 FOREIGN KEY (restaurante_id) REFERENCES restaurante (id);
 
 ALTER TABLE usuario_grupo ADD CONSTRAINT fk_usuario_grupo_grupo
