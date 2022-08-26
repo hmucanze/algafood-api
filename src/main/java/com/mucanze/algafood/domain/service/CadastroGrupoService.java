@@ -15,7 +15,7 @@ import com.mucanze.algafood.domain.repository.GrupoRepository;
 public class CadastroGrupoService {
 	
 	private static final String MSG_GRUPO_EM_USO =
-			"Forma Pagamento de código %d não pode ser removido, pois está em uso.";
+			"Grupo de código %d não pode ser removido, pois está em uso.";
 	
 	@Autowired
 	private GrupoRepository grupoRepository;
