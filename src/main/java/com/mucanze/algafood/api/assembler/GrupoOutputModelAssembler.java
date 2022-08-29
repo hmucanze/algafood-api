@@ -1,5 +1,6 @@
 package com.mucanze.algafood.api.assembler;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class GrupoOutputModelAssembler {
 		return modelMapper.map(grupo, GrupoOutputModel.class);
 	}
 	
-	public List<GrupoOutputModel> toCollectionModel(List<Grupo> grupos) {
+	public List<GrupoOutputModel> toCollectionModel(Collection<Grupo> grupos) {
 		return grupos.stream()
 				.map(grupo -> toModel(grupo))
 				.collect(Collectors.toList());

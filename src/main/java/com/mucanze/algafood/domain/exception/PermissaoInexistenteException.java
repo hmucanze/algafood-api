@@ -9,7 +9,7 @@ public class PermissaoInexistenteException extends EntidadeInexistenteException 
 	}
 	
 	public PermissaoInexistenteException(Long permissaoId) {
-		this(String.format("Não existe registro de permissão com o identificador %d no restaurante de identificador %d.",
+		this(String.format("Não existe registro de permissão com o identificador %d.",
 				permissaoId));
 	}
 

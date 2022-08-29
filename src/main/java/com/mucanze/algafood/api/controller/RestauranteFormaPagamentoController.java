@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mucanze.algafood.api.assembler.FormaPagamentoOutputModelAssembler;
 import com.mucanze.algafood.api.model.output.FormaPagamentoOutputModel;
+import com.mucanze.algafood.domain.exception.EntidadeInexistenteException;
+import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.model.Restaurante;
 import com.mucanze.algafood.domain.service.CadastroRestauranteService;
 
@@ -37,13 +39,22 @@ public class RestauranteFormaPagamentoController {
 	@PutMapping("/{formaPagamentoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void associarFormaPagamento(@PathVariable Long restauranteId, @PathVariable Long formaPagamentoId) {
-		cadastroRestauranteService.associarFormaPagamento(restauranteId, formaPagamentoId);
+		try {
+			cadastroRestauranteService.associarFormaPagamento(restauranteId, formaPagamentoId);
+		} catch (EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+		}
+		
 	}
 	
 	@DeleteMapping("/{formaPagamentoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void desassociarFormaPagamento(@PathVariable Long restauranteId, @PathVariable Long formaPagamentoId) {
-		cadastroRestauranteService.desassociarFormaPagamento(restauranteId, formaPagamentoId);
+		try {
+			cadastroRestauranteService.desassociarFormaPagamento(restauranteId, formaPagamentoId);
+		} catch (EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.exception.UsuarioInexistenteException;
+import com.mucanze.algafood.domain.model.Grupo;
 import com.mucanze.algafood.domain.model.Usuario;
 import com.mucanze.algafood.domain.repository.UsuarioRepository;
 
@@ -22,6 +23,9 @@ public class CadastroUsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private CadastroGrupoService cadastroGrupoService;
 	
 	public Usuario salvar(Usuario usuario) {
 	 	Optional<Usuario> usuarioRetornado = usuarioRepository.findByEmail(usuario.getEmail());
@@ -62,6 +66,24 @@ public class CadastroUsuarioService {
 					String.format(MSG_USUARIO_EM_USO, id));
 		}
 		
+	}
+	
+	@Transactional
+	public void associarGrupo(Long usuarioId, Long grupoId) {
+		Usuario usuario = buscarPorId(usuarioId);
+		
+		Grupo grupo = cadastroGrupoService.buscarPorId(grupoId);
+		
+		usuario.associarGrupo(grupo);
+	}
+	
+	@Transactional
+	public void desassociarGrupo(Long usuarioId, Long grupoId) {
+		Usuario usuario = buscarPorId(usuarioId);
+		
+		Grupo grupo = cadastroGrupoService.buscarPorId(grupoId);
+		
+		usuario.desassociarGrupo(grupo);
 	}
 	
 	public Usuario buscarPorId(Long id) {

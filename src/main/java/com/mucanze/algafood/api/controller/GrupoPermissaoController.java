@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mucanze.algafood.api.assembler.PermissaoOutputModelAssembler;
 import com.mucanze.algafood.api.model.output.PermissaoOutputModel;
+import com.mucanze.algafood.domain.exception.EntidadeInexistenteException;
+import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.model.Grupo;
 import com.mucanze.algafood.domain.service.CadastroGrupoService;
 
@@ -37,13 +39,21 @@ public class GrupoPermissaoController {
 	@PutMapping("/{permissaoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void associarPermissao(@PathVariable Long grupoId, @PathVariable Long permissaoId) {
-		cadastroGrupoService.associarPermissao(grupoId, permissaoId);
+		try {
+			cadastroGrupoService.associarPermissao(grupoId, permissaoId);
+		} catch (EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 	@DeleteMapping("/{permissaoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void desassociarPermissao(@PathVariable Long grupoId, @PathVariable Long permissaoId) {
-		cadastroGrupoService.desassociarPermissoa(grupoId, permissaoId);
+		try {
+			cadastroGrupoService.desassociarPermissoa(grupoId, permissaoId);
+		} catch (EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 
 }
