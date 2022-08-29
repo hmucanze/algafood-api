@@ -21,9 +21,7 @@ import com.mucanze.algafood.api.assembler.ProdutoOutputModelAssembler;
 import com.mucanze.algafood.api.model.input.ProdutoInputModel;
 import com.mucanze.algafood.api.model.output.ProdutoOutputModel;
 import com.mucanze.algafood.domain.model.Produto;
-import com.mucanze.algafood.domain.model.Restaurante;
 import com.mucanze.algafood.domain.service.CadastroProdutoService;
-import com.mucanze.algafood.domain.service.CadastroRestauranteService;
 
 @RestController
 @RequestMapping("/restaurantes/{restauranteId}/produtos")
@@ -37,9 +35,6 @@ public class RestauranteProdutoController {
 	
 	@Autowired
 	private ProdutoInputModelDisassembler produtoInputModelDisassembler;
-	
-	@Autowired
-	private CadastroRestauranteService cadastroRestauranteService;
 	
 	@GetMapping
 	public List<ProdutoOutputModel> listarProdutoPorRestauranteId(@PathVariable Long restauranteId) {
@@ -56,9 +51,6 @@ public class RestauranteProdutoController {
 	public ProdutoOutputModel salvarProdutoDeRestaurante(@PathVariable Long restauranteId,
 			@RequestBody @Valid ProdutoInputModel produtoInputModel) {
 		Produto produto = produtoInputModelDisassembler.toDomainObject(produtoInputModel);
-		
-		//Restaurante restaurante = cadastroRestauranteService.buscarPorId(restauranteId);
-		//produto.setRestaurante(restaurante);
 		
 		return produtoOutputModelAssembler.toModel(cadastroProdutoService.salvar(restauranteId, produto));
 	}

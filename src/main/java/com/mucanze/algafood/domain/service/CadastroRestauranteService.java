@@ -39,8 +39,11 @@ public class CadastroRestauranteService {
 			Cozinha cozinha = cadastroCozinhaService.buscarPorId(restaurante.getCozinha().getId());
 			restaurante.setCozinha(cozinha);
 			
-			Cidade cidade = cadastroCidadeService.buscarPorId(restaurante.getEndereco().getCidade().getId());
-			restaurante.getEndereco().setCidade(cidade);
+			if(restaurante.getEndereco() != null) {
+				Cidade cidade = cadastroCidadeService.buscarPorId(restaurante.getEndereco().getCidade().getId());
+				restaurante.getEndereco().setCidade(cidade);
+			}
+			
 			return restauranteRepository.save(restaurante);
 		} catch(EntidadeInexistenteException e) {
 			throw new NegocioException(e.getMessage());
@@ -96,6 +99,20 @@ public class CadastroRestauranteService {
 		FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscarPorId(formaPagamentoId);
 		
 		restaurante.desassociarFormaPagamento(formaPagamento);
+	}
+	
+	@Transactional
+	public void abrir(Long id) {
+		Restaurante restaurante = buscarPorId(id);
+		
+		restaurante.abrir();
+	}
+	
+	@Transactional
+	public void fechar(Long id) {
+		Restaurante restaurante = buscarPorId(id);
+		
+		restaurante.fechar();
 	}
 	
 	public Restaurante buscarPorId(Long id) {
