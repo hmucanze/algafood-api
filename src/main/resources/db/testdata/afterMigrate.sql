@@ -72,3 +72,5 @@ INSERT INTO usuario (id, nome, email, senha, data_cadastro) VALUES
 (2, 'Maria Joaquina', 'maria.vnd@algafood.com', '123', utc_timestamp),
 (3, 'José Souza', 'jose.aux@algafood.com', '123', utc_timestamp),
 (4, 'Sebastião Martins', 'sebastiao.cad@algafood.com', '123', utc_timestamp);
+
+INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES(1, 1), (1, 2), (2, 1), (3, 1), (4, 1);

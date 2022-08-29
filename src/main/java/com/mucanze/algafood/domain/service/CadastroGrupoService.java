@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mucanze.algafood.domain.exception.EntidadeEmUsoException;
 import com.mucanze.algafood.domain.exception.GrupoInexistenteException;
 import com.mucanze.algafood.domain.model.Grupo;
+import com.mucanze.algafood.domain.model.Permissao;
 import com.mucanze.algafood.domain.repository.GrupoRepository;
 
 @Service
@@ -19,6 +21,9 @@ public class CadastroGrupoService {
 	
 	@Autowired
 	private GrupoRepository grupoRepository;
+	
+	@Autowired
+	private CadastroPermissaoService cadastroPermissaoService;
 	
 	public Grupo salvar(Grupo grupo) {
 		return grupoRepository.save(grupo);
@@ -40,6 +45,24 @@ public class CadastroGrupoService {
 		} catch(DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(String.format(MSG_GRUPO_EM_USO, id));
 		}
+	}
+	
+	@Transactional
+	public void associarPermissao(Long grupoId, Long permissaoId) {
+		Grupo grupo = buscarPorId(grupoId);
+		
+		Permissao permissao = cadastroPermissaoService.buscarPorId(permissaoId);
+		
+		grupo.associarPermissao(permissao);
+	}
+	
+	@Transactional
+	public void desassociarPermissoa(Long grupoId, Long PermissaoId) {
+		Grupo grupo = buscarPorId(grupoId);
+		
+		Permissao permissao = cadastroPermissaoService.buscarPorId(PermissaoId);
+		
+		grupo.desassociarPermissao(permissao);
 	}
 	
 	public Grupo buscarPorId(Long id) {
