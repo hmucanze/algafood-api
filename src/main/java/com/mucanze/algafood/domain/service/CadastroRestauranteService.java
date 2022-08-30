@@ -14,6 +14,7 @@ import com.mucanze.algafood.domain.model.Cidade;
 import com.mucanze.algafood.domain.model.Cozinha;
 import com.mucanze.algafood.domain.model.FormaPagamento;
 import com.mucanze.algafood.domain.model.Restaurante;
+import com.mucanze.algafood.domain.model.Usuario;
 import com.mucanze.algafood.domain.repository.RestauranteRepository;
 
 @Service
@@ -33,6 +34,9 @@ public class CadastroRestauranteService {
 	
 	@Autowired
 	private CadastroFormaPagamentoService cadastroFormaPagamentoService;
+	
+	@Autowired
+	private CadastroUsuarioService cadastroUsuarioService;
 	
 	public Restaurante salvar(Restaurante restaurante) {
 		try {
@@ -113,6 +117,24 @@ public class CadastroRestauranteService {
 		Restaurante restaurante = buscarPorId(id);
 		
 		restaurante.fechar();
+	}
+	
+	@Transactional
+	public void adicionarUsuarioResponsavel(Long restauranteId, Long usuarioId) {
+		Restaurante restaurante = buscarPorId(restauranteId);
+		
+		Usuario usuario = cadastroUsuarioService.buscarPorId(usuarioId);
+		
+		restaurante.adicionarResponsavel(usuario);
+	}
+	
+	@Transactional
+	public void removerUsuarioResponsavel(Long restauranteId, Long usuarioId) {
+		Restaurante restaurante = buscarPorId(restauranteId);
+		
+		Usuario usuario = cadastroUsuarioService.buscarPorId(usuarioId);
+		
+		restaurante.removerResponsavel(usuario);
 	}
 	
 	public Restaurante buscarPorId(Long id) {
