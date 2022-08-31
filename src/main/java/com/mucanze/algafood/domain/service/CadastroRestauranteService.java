@@ -1,5 +1,7 @@
 package com.mucanze.algafood.domain.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -135,6 +137,16 @@ public class CadastroRestauranteService {
 		Usuario usuario = cadastroUsuarioService.buscarPorId(usuarioId);
 		
 		restaurante.removerResponsavel(usuario);
+	}
+	
+	@Transactional
+	public void activarEmMassa(List<Long> restaurantesId) {
+		restaurantesId.forEach(this::activar);
+	}
+	
+	@Transactional
+	public void inactivarEmMassa(List<Long> restaurantesId) {
+		restaurantesId.forEach(this::inactivar);
 	}
 	
 	public Restaurante buscarPorId(Long id) {

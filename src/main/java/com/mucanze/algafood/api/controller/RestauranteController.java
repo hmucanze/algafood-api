@@ -20,6 +20,8 @@ import com.mucanze.algafood.api.assembler.RestauranteInputDisassembler;
 import com.mucanze.algafood.api.assembler.RestauranteOutputModelAssembler;
 import com.mucanze.algafood.api.model.input.RestauranteInputModel;
 import com.mucanze.algafood.api.model.output.RestauranteOutputModel;
+import com.mucanze.algafood.domain.exception.EntidadeInexistenteException;
+import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.model.Restaurante;
 import com.mucanze.algafood.domain.repository.RestauranteRepository;
 import com.mucanze.algafood.domain.service.CadastroRestauranteService;
@@ -80,31 +82,72 @@ public class RestauranteController {
 	@PutMapping("/{id}/activo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void activar(@PathVariable Long id) {
-		cadastroRestauranteService.activar(id);
+		try {
+			cadastroRestauranteService.activar(id);
+		} catch(EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 	@PutMapping("/{id}/abertura")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void abrir(@PathVariable Long id) {
-		cadastroRestauranteService.abrir(id);
+		try {
+			cadastroRestauranteService.abrir(id);
+		} catch (EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+		}
+	}
+	
+	@PutMapping("/activacoes")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void activarEmMassa(@RequestBody List<Long> restaurantesId) {
+		try {
+			cadastroRestauranteService.activarEmMassa(restaurantesId);
+		} catch (EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+		}
+		
+	}
+	
+	@DeleteMapping("/activacoes")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void inactivarEmMassa(@RequestBody List<Long> restaurantesId) {
+		try {
+			cadastroRestauranteService.inactivarEmMassa(restaurantesId);
+		} catch (NegocioException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 	@DeleteMapping("/{id}/fechamento")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void fechar(@PathVariable Long id) {
-		cadastroRestauranteService.fechar(id);
+		try {
+			cadastroRestauranteService.fechar(id);
+		} catch (EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 	@DeleteMapping("/{id}/inactivo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void inactivar(@PathVariable Long id) {
-		cadastroRestauranteService.inactivar(id);
+		try {
+			cadastroRestauranteService.inactivar(id);
+		} catch (EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {
-		cadastroRestauranteService.remover(id);
+		try {
+			cadastroRestauranteService.remover(id);
+		} catch (EntidadeInexistenteException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 	/*@PatchMapping("/{id}")
