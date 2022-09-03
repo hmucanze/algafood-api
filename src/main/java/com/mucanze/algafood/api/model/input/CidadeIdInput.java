@@ -10,6 +10,6 @@ import lombok.Setter;
 public class CidadeIdInput {
 	
 	@NotNull
-	private Long id;
+	private Long cidadeId;
 
 }

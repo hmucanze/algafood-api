@@ -40,5 +40,19 @@ public class ItemPedido {
 	@ManyToOne
 	@JoinColumn(name = "pedido_id", nullable = false)
 	private Pedido pedido;
+	
+	public void definirPrecoUnitario() {
+		this.setPrecoUnitario(this.getProduto().getPreco());
+	}
+	
+	public void calcularPrecoTotal() {
+		if(this.getPrecoUnitario() == null) {
+			this.setPrecoUnitario(BigDecimal.ZERO);
+		}
+		if(this.getQuantidade() == null) {
+			this.setQuantidade(0);
+		}
+		this.setPrecoTotal(this.getPrecoUnitario().multiply(BigDecimal.valueOf(quantidade)));
+	}
 
 }
