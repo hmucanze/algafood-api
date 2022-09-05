@@ -2,6 +2,7 @@ package com.mucanze.algafood.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.exception.PedidoInexistenteException;
@@ -30,6 +31,7 @@ public class EmissaoPedidoService {
 	@Autowired
 	private CadastroCidadeService cadastroCidadeService;
 	
+	@Transactional
 	public Pedido salvar(Pedido pedido) {
 		validarPedido(pedido);
 		

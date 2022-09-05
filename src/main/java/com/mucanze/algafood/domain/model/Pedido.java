@@ -21,6 +21,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.mucanze.algafood.domain.exception.NegocioException;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -88,6 +90,39 @@ public class Pedido {
 	
 	public void definirTaxaFrete() {
 		this.setTaxaFrete(this.getRestaurante().getTaxaFrete());
+	}
+	
+	public void confirmar() {
+		this.setStatus(StatusPedido.CONFIRMADO);
+		this.setDataConfirmacao(OffsetDateTime.now());
+	}
+	
+	public void entregar() {
+		this.setStatus(StatusPedido.ENTREGUE);
+		this.setDataEntrega(OffsetDateTime.now());
+	}
+	
+	public void cancelar() {
+		this.setStatus(StatusPedido.CANCELADO);
+		this.setDataCancelamento(OffsetDateTime.now());
+	}
+	
+	private void setStatus(StatusPedido novoStatus) {
+		if(this.getStatus().naoPodeAlterarPara(novoStatus)) {
+			if(this.getStatus().equals(novoStatus)) {
+				throw new NegocioException(
+						String.format("O Status do pedido %d não pode alterar para o status %s pois o pedido já está %s",
+								this.getId(),
+								novoStatus.getDescricao(),
+								this.getStatus().getDescricao()));
+			}
+			throw new NegocioException(
+					String.format("Pedido de identificador %d não pode transitar de status %s para status %s",
+					this.getId(),
+					this.getStatus().getDescricao(),
+					novoStatus.getDescricao()));
+		}
+		this.status = novoStatus;
 	}
 	
 }
