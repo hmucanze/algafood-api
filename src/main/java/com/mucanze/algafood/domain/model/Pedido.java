@@ -3,6 +3,7 @@ package com.mucanze.algafood.domain.model;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,6 +38,9 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	private String codigo;
+	
 	private BigDecimal subtotal;
 	
 	@Column(name = "taxa_frete")
@@ -77,6 +82,11 @@ public class Pedido {
 	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ItemPedido> itens;
+	
+	@PrePersist
+	private void adicionarUUID() {
+		this.setCodigo(UUID.randomUUID().toString());
+	}
 	
 	public void calcularValorTotal() {
 		this.getItens().forEach(ItemPedido::calcularPrecoTotal);

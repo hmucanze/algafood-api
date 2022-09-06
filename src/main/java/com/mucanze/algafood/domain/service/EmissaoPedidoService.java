@@ -70,9 +70,9 @@ public class EmissaoPedidoService {
 		}
 	}
 	
-	public Pedido buscarPorId(Long id) {
-		return pedidoRepository.findById(id).orElseThrow(
-				() -> new PedidoInexistenteException(id));
+	public Pedido buscarPorCodigo(String codigo) {
+		return pedidoRepository.findByCodigo(codigo).orElseThrow(
+				() -> new PedidoInexistenteException(codigo));
 	}
 
 }

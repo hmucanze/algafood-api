@@ -1,0 +1,2 @@
+
+ALTER TABLE pedido ADD COLUMN codigo VARCHAR(40) AFTER id;

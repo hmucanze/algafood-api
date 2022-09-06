@@ -49,9 +49,9 @@ public class PedidoController {
 		return pedidoOutputResumoModelAssembler.toCollectionModel(pedidoRepository.findAll());
 	}
 	
-	@GetMapping("/{id}")
-	public PedidoOutputModel buscarPorId(@PathVariable Long id) {
-		return pedidoOutputModelAssembler.toModel(emissaoPedidoService.buscarPorId(id));
+	@GetMapping("/{codigo}")
+	public PedidoOutputModel buscarPorId(@PathVariable String codigo) {
+		return pedidoOutputModelAssembler.toModel(emissaoPedidoService.buscarPorCodigo(codigo));
 	}
 	
 	@PostMapping

@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class PedidoOutputModel {
 	
-	private Long pedidoId;
+	private String codigo;
 	private BigDecimal subtotal;
 	private BigDecimal taxaFrete;
 	private BigDecimal valorTotal;

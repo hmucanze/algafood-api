@@ -1,0 +1,2 @@
+
+ALTER TABLE pedido MODIFY codigo VARCHAR(40) NOT NULL;
