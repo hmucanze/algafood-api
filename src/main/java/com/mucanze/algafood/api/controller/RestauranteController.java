@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mucanze.algafood.api.assembler.RestauranteInputDisassembler;
 import com.mucanze.algafood.api.assembler.RestauranteOutputModelAssembler;
 import com.mucanze.algafood.api.model.input.RestauranteInputModel;
 import com.mucanze.algafood.api.model.output.RestauranteOutputModel;
+import com.mucanze.algafood.api.model.output.view.RestauranteView;
 import com.mucanze.algafood.domain.exception.EntidadeInexistenteException;
 import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.model.Restaurante;
@@ -48,6 +50,12 @@ public class RestauranteController {
 	@GetMapping
 	public List<RestauranteOutputModel> listar() {
 		return restauranteOutputModelAssembler.toCollectionModel(restauranteRepository.findAll());
+	}
+	
+	@JsonView(RestauranteView.Resumo.class)
+	@GetMapping(params = "projeccao=resumo")
+	public List<RestauranteOutputModel> listarResumido() {
+		return listar();
 	}
 	
 	@GetMapping("/{id}")
