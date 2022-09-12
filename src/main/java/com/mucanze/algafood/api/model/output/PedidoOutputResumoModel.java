@@ -3,13 +3,12 @@ package com.mucanze.algafood.api.model.output;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.mucanze.algafood.domain.model.StatusPedido;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@JsonFilter("pedidoFilter")
+//@JsonFilter("pedidoFilter")
 @Getter
 @Setter
 public class PedidoOutputResumoModel {
