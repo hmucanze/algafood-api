@@ -14,29 +14,32 @@ public class PedidoSpecification {
 	
 	public static Specification<Pedido> filtrar(PedidoFilter pedidoFilter) {
 		return (root, query, builder) -> {
-			List<Predicate> predites = new ArrayList<>();
+			List<Predicate> predicates = new ArrayList<>();
+			
+			if(Pedido.class.equals(query.getResultType())) {
+				root.fetch("cliente");
+				root.fetch("restaurante").fetch("cozinha");
+			}
 			
 			if(pedidoFilter.getClienteId() != null) {
-				root.fetch("cliente");
-				predites.add(builder.equal(root.get("cliente"), pedidoFilter.getClienteId()));
+				predicates.add(builder.equal(root.get("cliente"), pedidoFilter.getClienteId()));
 			}
 			
 			if(pedidoFilter.getRestauranteId() != null) {
-				root.fetch("restaurante").fetch("cozinha");
-				predites.add(builder.equal(root.get("restaurante"), pedidoFilter.getRestauranteId()));
+				predicates.add(builder.equal(root.get("restaurante"), pedidoFilter.getRestauranteId()));
 			}
 			
 			if(pedidoFilter.getDataCriacaoInicial() != null) {
-				predites.add(builder.greaterThanOrEqualTo(root.get("dataCriacao"),
+				predicates.add(builder.greaterThanOrEqualTo(root.get("dataCriacao"),
 						pedidoFilter.getDataCriacaoInicial()));
 			}
 			
 			if(pedidoFilter.getDataCriacaoFinal() != null) {
-				predites.add(builder.lessThanOrEqualTo(root.get("dataCriacao"),
+				predicates.add(builder.lessThanOrEqualTo(root.get("dataCriacao"),
 						pedidoFilter.getDataCriacaoFinal()));
 			}
 			
-			return builder.and(predites.toArray(new Predicate[0]));
+			return builder.and(predicates.toArray(new Predicate[0]));
 		};
 	}
 

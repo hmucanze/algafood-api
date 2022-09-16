@@ -5,6 +5,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,11 +51,14 @@ public class PedidoController {
 	private PedidoInputModelDisassembler pedidoInputModelDisassembler;
 	
 	@GetMapping
-	public List<PedidoOutputResumoModel> pesquisar(@RequestParam(required = false) String campos,
-			PedidoFilter pedidoFilter) {
+	public Page<PedidoOutputResumoModel> pesquisar(@RequestParam(required = false) String campos,
+			PedidoFilter pedidoFilter, Pageable pageable) {
 		
-		List<Pedido> pedidos = pedidoRepository.findAll(PedidoSpecification.filtrar(pedidoFilter));
-		return pedidoOutputResumoModelAssembler.toCollectionModel(pedidos);
+		Page<Pedido> pedidosPage = pedidoRepository.findAll(PedidoSpecification.filtrar(pedidoFilter), pageable);
+		
+		List<PedidoOutputResumoModel> pedidosOutputModel = pedidoOutputResumoModelAssembler.toCollectionModel(pedidosPage.getContent());
+		
+		return new PageImpl<>(pedidosOutputModel, pageable, pedidosPage.getTotalElements());
 	}
 	
 	@GetMapping("/{codigo}")
