@@ -32,6 +32,12 @@ public class CadastroProdutoService {
 		return produtoRepository.findByRestaurante(restaurante);
 	}
 	
+	public List<Produto> buscarActivoPorRestauranteId(Long restauranteId) {
+		Restaurante restaurante = cadastroRestauranteService.buscarPorId(restauranteId);
+		
+		return produtoRepository.findActivoByRestaurante(restaurante);
+	}
+	
 	public Produto salvar(Long restauranteId, Produto produto) {
 		Restaurante restaurante = cadastroRestauranteService.buscarPorId(restauranteId);
 		produto.setRestaurante(restaurante);

@@ -60,7 +60,7 @@ INSERT INTO forma_pagamento(descricao) VALUES("Dinheiro");
 
 INSERT INTO restaurante_forma_pagamento(restaurante_id, forma_pagamento_id) VALUES(1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3), (4, 1), (4, 2), (5, 1), (5, 2), (6, 3);
 
-INSERT INTO produto(nome, descricao, preco, activo, restaurante_id) VALUES("Porco com molho agridoce", "Deliciosa carne suína ao molho especial", 78.90, 1, 1);
+INSERT INTO produto(nome, descricao, preco, activo, restaurante_id) VALUES("Porco com molho agridoce", "Deliciosa carne suína ao molho especial", 78.90, 0, 1);
 INSERT INTO produto(nome, descricao, preco, activo, restaurante_id) VALUES("Camarão tailandês", "16 camarões grandes ao molho picante", 110, 1, 1);
 INSERT INTO produto(nome, descricao, preco, activo, restaurante_id) VALUES("Salada picante com carne grelhada", "Salada de folhas com cortes finos de carne bovina grelhada e nosso molho especial de pimenta vermelha", 87.20, 1, 2);
 INSERT INTO produto(nome, descricao, preco, activo, restaurante_id) VALUES("Garlic Naan", "Pão tradicional indiano com cobertura de alho", 21, 1, 3);
@@ -88,7 +88,7 @@ INSERT INTO restaurante_usuario_responsavel(restaurante_id, usuario_id) VALUES(1
 INSERT INTO pedido (id, codigo, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
     endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
     status, data_criacao, subtotal, taxa_frete, valor_total)
-VALUES (1, 'fa02222e-40ab-4751-8bf6-9d136107fa25', 1, 1, 1, 1, '38400-000', 'Rua Floriano Peixoto', '500', 'Apto 801', 'Brasil',
+VALUES (1, 'fa02222e-40ab-4751-8bf6-9d136107fa25', 1, 2, 1, 1, '38400-000', 'Rua Floriano Peixoto', '500', 'Apto 801', 'Brasil',
 'CRIADO', utc_timestamp, 298.90, 10, 308.90);
 
 INSERT INTO item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,9 +38,18 @@ public class RestauranteProdutoController {
 	private ProdutoInputModelDisassembler produtoInputModelDisassembler;
 	
 	@GetMapping
-	public List<ProdutoOutputModel> listarProdutoPorRestauranteId(@PathVariable Long restauranteId) {
+	public List<ProdutoOutputModel> listarProdutoPorRestauranteId(@RequestParam(required = false) boolean permitirInactivo,
+			@PathVariable Long restauranteId) {
 		
-		return produtoOutputModelAssembler.toCollectionModel(cadastroProdutoService.buscarPorRestauranteId(restauranteId));
+		List<Produto> produtos = null;
+		
+		if(permitirInactivo) {
+			produtos = cadastroProdutoService.buscarPorRestauranteId(restauranteId);
+		} else {
+			produtos = cadastroProdutoService.buscarActivoPorRestauranteId(restauranteId);
+		}
+		
+		return produtoOutputModelAssembler.toCollectionModel(produtos);
 	}
 	
 	@GetMapping("/{produtoId}")

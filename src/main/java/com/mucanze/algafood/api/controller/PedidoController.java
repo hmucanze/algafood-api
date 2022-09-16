@@ -24,7 +24,9 @@ import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.model.Pedido;
 import com.mucanze.algafood.domain.model.Usuario;
 import com.mucanze.algafood.domain.repository.PedidoRepository;
+import com.mucanze.algafood.domain.repository.filter.PedidoFilter;
 import com.mucanze.algafood.domain.service.EmissaoPedidoService;
+import com.mucanze.algafood.infrastruture.repository.spec.PedidoSpecification;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -46,8 +48,10 @@ public class PedidoController {
 	private PedidoInputModelDisassembler pedidoInputModelDisassembler;
 	
 	@GetMapping
-	public List<PedidoOutputResumoModel> listar(@RequestParam(required = false) String campos) {
-		List<Pedido> pedidos = pedidoRepository.findAll();
+	public List<PedidoOutputResumoModel> pesquisar(@RequestParam(required = false) String campos,
+			PedidoFilter pedidoFilter) {
+		
+		List<Pedido> pedidos = pedidoRepository.findAll(PedidoSpecification.filtrar(pedidoFilter));
 		return pedidoOutputResumoModelAssembler.toCollectionModel(pedidos);
 	}
 	

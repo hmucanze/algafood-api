@@ -25,6 +25,7 @@ import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.model.Restaurante;
 import com.mucanze.algafood.domain.repository.RestauranteRepository;
 import com.mucanze.algafood.domain.service.CadastroRestauranteService;
+import com.mucanze.algafood.infrastruture.repository.spec.RestauranteSpecifications;
 
 @RestController
 @RequestMapping("/restaurantes")
@@ -48,6 +49,14 @@ public class RestauranteController {
 	@GetMapping
 	public List<RestauranteOutputModel> listar() {
 		return restauranteOutputModelAssembler.toCollectionModel(restauranteRepository.findAll());
+	}
+	
+	@GetMapping("/taxa")
+	public List<RestauranteOutputModel> taxaFreteZero() {
+		
+		List<Restaurante> restaurantes = restauranteRepository.findAll(RestauranteSpecifications.taxaFreteZero());
+		
+		return restauranteOutputModelAssembler.toCollectionModel(restaurantes);
 	}
 	
 	/*@JsonView(RestauranteView.Resumo.class)
