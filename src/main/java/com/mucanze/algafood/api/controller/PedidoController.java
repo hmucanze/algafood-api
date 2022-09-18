@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,7 +53,7 @@ public class PedidoController {
 	
 	@GetMapping
 	public Page<PedidoOutputResumoModel> pesquisar(@RequestParam(required = false) String campos,
-			PedidoFilter pedidoFilter, Pageable pageable) {
+			PedidoFilter pedidoFilter,@PageableDefault(size = 2) Pageable pageable) {
 		
 		Page<Pedido> pedidosPage = pedidoRepository.findAll(PedidoSpecification.filtrar(pedidoFilter), pageable);
 		
