@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.collect.ImmutableMap;
 import com.mucanze.algafood.api.assembler.PedidoInputModelDisassembler;
 import com.mucanze.algafood.api.assembler.PedidoOutputModelAssembler;
 import com.mucanze.algafood.api.assembler.PedidoOutputResumoModelAssembler;
 import com.mucanze.algafood.api.model.input.PedidoInputModel;
 import com.mucanze.algafood.api.model.output.PedidoOutputModel;
 import com.mucanze.algafood.api.model.output.PedidoOutputResumoModel;
+import com.mucanze.algafood.core.data.PageableTranslator;
 import com.mucanze.algafood.domain.exception.EntidadeInexistenteException;
 import com.mucanze.algafood.domain.exception.NegocioException;
 import com.mucanze.algafood.domain.model.Pedido;
@@ -55,13 +57,15 @@ public class PedidoController {
 	public Page<PedidoOutputResumoModel> pesquisar(@RequestParam(required = false) String campos,
 			PedidoFilter pedidoFilter,@PageableDefault(size = 2) Pageable pageable) {
 		
+		pageable = traduzPageable(pageable);
+		
 		Page<Pedido> pedidosPage = pedidoRepository.findAll(PedidoSpecification.filtrar(pedidoFilter), pageable);
 		
 		List<PedidoOutputResumoModel> pedidosOutputModel = pedidoOutputResumoModelAssembler.toCollectionModel(pedidosPage.getContent());
 		
 		return new PageImpl<>(pedidosOutputModel, pageable, pedidosPage.getTotalElements());
 	}
-	
+
 	@GetMapping("/{codigo}")
 	public PedidoOutputModel buscarPorId(@PathVariable String codigo) {
 		return pedidoOutputModelAssembler.toModel(emissaoPedidoService.buscarPorCodigo(codigo));
@@ -82,6 +86,17 @@ public class PedidoController {
 		} catch (EntidadeInexistenteException e) {
 			throw new NegocioException(e.getMessage());
 		}
+	}
+	
+	private Pageable traduzPageable(Pageable pageable) {
+		var mapeamento = ImmutableMap.of(
+				"codigo", "codigo",
+				"restaurante.nome", "restaurante.nome",
+				"nomeCliente", "cliente.nome",
+				"valorTotal", "valorTotal"
+			);
+		
+		return PageableTranslator.translate(pageable, mapeamento);
 	}
 	
 }

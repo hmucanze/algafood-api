@@ -20,6 +20,8 @@ public class PedidoOutputResumoModel {
 	private OffsetDateTime dataCriacao;
 	private StatusPedido statusPedido;
 	private RestauranteOutputResumoModel restaurante;
-	private UsuarioOutputModel cliente;
+	//private UsuarioOutputModel cliente;
+	
+	private String nomeCliente;
 
 }
