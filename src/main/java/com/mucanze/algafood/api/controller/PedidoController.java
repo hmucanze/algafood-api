@@ -55,7 +55,7 @@ public class PedidoController {
 	
 	@GetMapping
 	public Page<PedidoOutputResumoModel> pesquisar(@RequestParam(required = false) String campos,
-			PedidoFilter pedidoFilter,@PageableDefault(size = 2) Pageable pageable) {
+			PedidoFilter pedidoFilter, @PageableDefault(size = 2) Pageable pageable) {
 		
 		pageable = traduzPageable(pageable);
 		
