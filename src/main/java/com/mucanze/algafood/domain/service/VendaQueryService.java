@@ -7,6 +7,6 @@ import com.mucanze.algafood.domain.model.dto.VendaDiaria;
 
 public interface VendaQueryService {
 	
-	public List<VendaDiaria> listar(VendaDiariaFilter vendaDiariaFilter);
+	public List<VendaDiaria> listarVendasDiarias(VendaDiariaFilter vendaDiariaFilter, String timeOffset);
 
 }

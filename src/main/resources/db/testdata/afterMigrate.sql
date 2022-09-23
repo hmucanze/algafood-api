@@ -89,7 +89,7 @@ INSERT INTO pedido (id, codigo, restaurante_id, usuario_cliente_id, forma_pagame
     endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
     status, data_criacao, subtotal, taxa_frete, valor_total)
 VALUES (1, 'fa02222e-40ab-4751-8bf6-9d136107fa25', 1, 2, 1, 1, '38400-000', 'Rua Floriano Peixoto', '500', 'Apto 801', 'Brasil',
-'CRIADO', utc_timestamp, 298.90, 10, 308.90);
+'CRIADO', '2022-09-20 23:30:00', 298.90, 10, 308.90);
 
 INSERT INTO item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
 VALUES (1, 1, 1, 1, 78.9, 78.9, null);
@@ -102,7 +102,16 @@ INSERT INTO pedido (id, codigo, restaurante_id, usuario_cliente_id, forma_pagame
         endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
         status, data_criacao, subtotal, taxa_frete, valor_total)
 VALUES (2, '310f1cf2-4a05-49ee-b705-fc092a09f004', 4, 1, 2, 1, '38400-111', 'Rua Acre', '300', 'Casa 2', 'Centro',
-'CRIADO', utc_timestamp, 79, 0, 79);
+'CRIADO', '2022-09-21 01:00:00', 79, 0, 79);
 
 INSERT INTO item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
 VALUES (3, 2, 6, 1, 79, 79, 'Ao ponto');
+
+INSERT INTO pedido (id, codigo, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
+        endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
+        status, data_criacao, subtotal, taxa_frete, valor_total)
+VALUES (3, 'd3589a78-d40d-4f08-83ec-3236b468ada4', 2, 1, 3, 1, '38400-111', 'Rua Acre', '300', 'Casa 2', 'Centro',
+'CRIADO', '2022-09-21 23:09:30', 87.20, 9.50, 96.70);
+
+INSERT INTO item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
+VALUES (4, 3, 3, 1, 87.20, 96.70, 'Muito picante');
