@@ -22,7 +22,6 @@ public class PdfVendaReportService implements VendaReportService {
 
 	@Override
 	public byte[] emitirRelatorioVendasDiarias(VendaDiariaFilter vendaDiariaFilter, String timeOffset) {
-		
 		try {
 			var inputStream = this.getClass().getResourceAsStream("/reports/vendas-diarias.jasper");
 			
