@@ -1,5 +1,7 @@
 package com.mucanze.algafood.infrastruture.service.storage;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -19,13 +21,31 @@ public class LocalFotoStorageService implements FotoStorageService {
 	@Override
 	public void armazenar(NovaFoto novaFoto) {
 		try {
-		
 			Path arquivoPath = getArquivoPath(novaFoto.getNomeArquivo());
 			FileCopyUtils.copy(novaFoto.getInputStream(), Files.newOutputStream(arquivoPath));
-			
 		} catch (Exception e) {
-			throw new StorageException("Não foi possível armazenar o ficheiro", e);
+			throw new StorageException("Não foi possível armazenar o ficheiro da foto", e);
 		}	
+	}
+	
+	@Override
+	public void remover(String nomeFoto) {
+		try {
+			Path arquivoPath = getArquivoPath(nomeFoto);
+			Files.deleteIfExists(arquivoPath);
+		} catch (Exception e) {
+			throw new StorageException("Não foi possível remover o ficheiro da foto", e);
+		}
+	}
+	
+	@Override
+	public InputStream recuperar(String nomeFoto) {
+		try {
+			Path arquivoPath = getArquivoPath(nomeFoto);
+			return Files.newInputStream(arquivoPath);
+		} catch (Exception e) {
+			throw new StorageException("Não foi possível recuperar o ficheiro da foto", e);
+		}
 	}
 	
 	private Path getArquivoPath(String nomeArquivo) {
