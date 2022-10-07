@@ -1,5 +1,7 @@
 package com.mucanze.algafood.api.controller;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +34,16 @@ public class RestauranteProdutoFotoController {
 	
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoProdutoOutputModel actualizarFoto(@PathVariable Long restauranteId,
-			@PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput) {
+			@PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput) throws IOException {
 		
 		Produto produto = cadastroProdutoService.buscarPorId(restauranteId, produtoId);
 		
 		FotoProduto fotoProduto = criarFotoProduto(fotoProdutoInput, produto);
 		
-		FotoProduto fotoProdutoRetorndo = catalogoFotoProdutoService.salvar(fotoProduto);
+		FotoProduto fotoProdutoRetorndo = catalogoFotoProdutoService.salvar(fotoProduto, fotoProdutoInput.getFicheiro().getInputStream());
 		
 		return fotoProdutoOutputModelAssembler.toModel(fotoProdutoRetorndo);
 	}
-	
 
 	private FotoProduto criarFotoProduto(FotoProdutoInput fotoProdutoInput, Produto produto) {
 		FotoProduto fotoProduto = new FotoProduto();
