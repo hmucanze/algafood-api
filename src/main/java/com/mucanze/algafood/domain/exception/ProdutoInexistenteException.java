@@ -9,6 +9,8 @@ public class ProdutoInexistenteException extends EntidadeInexistenteException {
 	}
 	
 	public ProdutoInexistenteException(Long restauranteId, Long produtoId) {
-		this(String.format("Não existe registro de produto com o identificador %d no restaurante de identificador %d.", produtoId, restauranteId));
+		this(String.format(
+				"Não existe registro de produto com o identificador %d no restaurante de identificador %d.",
+				produtoId, restauranteId));
 	}
 }

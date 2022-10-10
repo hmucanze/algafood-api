@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mucanze.algafood.domain.exception.FotoProdutoInexistenteException;
 import com.mucanze.algafood.domain.model.FotoProduto;
 import com.mucanze.algafood.domain.repository.ProdutoRepository;
 import com.mucanze.algafood.domain.service.FotoStorageService.NovaFoto;
 
-@Service
+@Service	
 public class CatalogoFotoProdutoService {
-	
+		
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
@@ -48,5 +49,22 @@ public class CatalogoFotoProdutoService {
 		
 		return fotoProduto;
 	}
+	
+	@Transactional
+	public void remover(Long restauranteId, Long produtoId) {
+		FotoProduto fotoProduto = buscarPorId(restauranteId, produtoId);
+		
+		produtoRepository.delete(fotoProduto);
+		produtoRepository.flush();
+		
+		fotoStorageService.remover(fotoProduto.getNomeArquivo());
+	}
+
+	public FotoProduto buscarPorId(Long restauranteId, Long produtoId) {
+		return produtoRepository.findFotoById(restauranteId, produtoId)
+				.orElseThrow(()-> new FotoProdutoInexistenteException(restauranteId, produtoId));
+	}
+
+	
 
 }
