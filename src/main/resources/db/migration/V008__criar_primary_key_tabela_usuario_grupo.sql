@@ -1,3 +1,3 @@
 
-
-ALTER TABLE usuario_grupo DROP PRIMARY KEY, ADD PRIMARY KEY(usuario_id, grupo_id);
+DELETE FROM usuario_grupo;
+ALTER TABLE usuario_grupo ADD PRIMARY KEY(usuario_id, grupo_id);
