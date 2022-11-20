@@ -1,12 +1,13 @@
 package com.mucanze.algafood.infrastruture.service.storage;
 
-import java.io.InputStream;
+import java.net.URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.mucanze.algafood.core.storage.StorageProperties;
@@ -28,6 +29,7 @@ public class S3FotoStorageService implements FotoStorageService {
 			String caminhoArquivo = getCaminhoArquivo(novaFoto.getNomeArquivo());
 			
 			var objectMetadata = new ObjectMetadata();
+			objectMetadata.setContentType(novaFoto.getContentType());
 			
 			var putObjectRequest = new PutObjectRequest(
 					storageProperties.getS3().getNomeBucket(),
@@ -46,14 +48,31 @@ public class S3FotoStorageService implements FotoStorageService {
 
 	@Override
 	public void remover(String nomeFoto) {
-		// TODO Auto-generated method stub
-		
+		try {
+			String caminhoArquivo = getCaminhoArquivo(nomeFoto);
+			
+			var deleteObjectRequest = new DeleteObjectRequest(
+					storageProperties.getS3().getNomeBucket(),
+					caminhoArquivo
+					);	
+			
+			amazonS3.deleteObject(deleteObjectRequest);
+		} catch(Exception e) {
+			throw new StorageException("Não foi possível remover o arquivo do amazon S3.", e);
+		}
 	}
 
 	@Override
-	public InputStream recuperar(String nomeFoto) {
-		// TODO Auto-generated method stub
-		return null;
+	public FotoRecuperada recuperar(String nomeFoto) {
+		String caminhoArquivo = getCaminhoArquivo(nomeFoto);
+		
+		URL url = amazonS3.getUrl(
+				storageProperties.getS3().getNomeBucket(),
+				caminhoArquivo);
+		
+		return FotoRecuperada.builder()
+				.url(url.toString())
+				.build();
 	}
 
 	private String getCaminhoArquivo(String nomeArquivo) {

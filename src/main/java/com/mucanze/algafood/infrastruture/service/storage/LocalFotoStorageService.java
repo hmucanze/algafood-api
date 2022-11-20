@@ -1,6 +1,5 @@
 package com.mucanze.algafood.infrastruture.service.storage;
 
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -41,10 +40,15 @@ public class LocalFotoStorageService implements FotoStorageService {
 	}
 	
 	@Override
-	public InputStream recuperar(String nomeFoto) {
+	public FotoRecuperada recuperar(String nomeFoto) {
 		try {
 			Path arquivoPath = getArquivoPath(nomeFoto);
-			return Files.newInputStream(arquivoPath);
+			
+			FotoRecuperada fotoRecuperada = FotoRecuperada.builder()
+					.inputStream(Files.newInputStream(arquivoPath))
+					.build();
+			
+			return fotoRecuperada;
 		} catch (Exception e) {
 			throw new StorageException("Não foi possível recuperar o ficheiro da foto", e);
 		}
