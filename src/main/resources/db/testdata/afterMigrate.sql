@@ -78,7 +78,8 @@ INSERT INTO usuario (id, nome, email, senha, data_cadastro) VALUES
 (2, 'Maria Joaquina', 'maria.vnd@algafood.com', '123', utc_timestamp),
 (3, 'José Souza', 'jose.sec@algafood.com', '123', utc_timestamp),
 (4, 'Sebastião Martins', 'sebastiao.cad@algafood.com', '123', utc_timestamp),
-(5, 'Manoel Lima', 'manoel.loja@algafood.com', '123', utc_timestamp);
+(5, 'Manoel Lima', 'manoel.loja@algafood.com', '123', utc_timestamp),
+(6, 'Herminio Mucanze', 'site@mucanze.com', '123', utc_timestamp);
 
 INSERT INTO grupo_permissao(grupo_id, permissao_id) VALUES(1, 1), (1, 2), (2, 1), (3, 1), (4, 1);
 
@@ -89,7 +90,7 @@ INSERT INTO restaurante_usuario_responsavel(restaurante_id, usuario_id) VALUES(1
 INSERT INTO pedido (id, codigo, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
     endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
     status, data_criacao, subtotal, taxa_frete, valor_total)
-VALUES (1, 'fa02222e-40ab-4751-8bf6-9d136107fa25', 1, 2, 1, 1, '38400-000', 'Rua Floriano Peixoto', '500', 'Apto 801', 'Brasil',
+VALUES (1, 'fa02222e-40ab-4751-8bf6-9d136107fa25', 1, 6, 1, 1, '38400-000', 'Rua Floriano Peixoto', '500', 'Apto 801', 'Brasil',
 'CRIADO', '2022-09-20 23:30:00', 298.90, 10, 308.90);
 
 INSERT INTO item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
