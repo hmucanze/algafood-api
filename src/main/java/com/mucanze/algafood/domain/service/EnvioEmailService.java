@@ -1,5 +1,6 @@
 package com.mucanze.algafood.domain.service;
 
+import java.util.Map;
 import java.util.Set;
 
 import lombok.Builder;
@@ -23,6 +24,9 @@ public interface EnvioEmailService {
 		
 		@NonNull
 		private String texto;
+		
+		@Singular("variavel")
+		private Map<String, Object> variaveis;
 		
 	}
 
