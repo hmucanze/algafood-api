@@ -121,8 +121,8 @@ public class Pedido {
 		if(this.getStatus().naoPodeAlterarPara(novoStatus)) {
 			if(this.getStatus().equals(novoStatus)) {
 				throw new NegocioException(
-						String.format("O Status do pedido %d não pode alterar para o status %s pois o pedido já está %s",
-								this.getId(),
+						String.format("O Status do pedido %s não pode alterar para o status %s pois o pedido já está %s",
+								this.getCodigo(),
 								novoStatus.getDescricao(),
 								this.getStatus().getDescricao()));
 			}
