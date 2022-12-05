@@ -1,11 +1,11 @@
 package com.mucanze.algafood.infrastruture.service.email;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.mucanze.algafood.core.email.EmailProperties;
@@ -15,7 +15,7 @@ import com.mucanze.algafood.infrastruture.service.email.exception.EmailException
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-@Service
+//@Service
 public class SmtpEnvioEmailService implements EnvioEmailService {
 
 	@Autowired
@@ -30,14 +30,7 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
 	@Override
 	public void enviar(Mensagem mensagem) {
 		try {
-			MimeMessage mimeMessage = mailSender.createMimeMessage();
-			String corpoEmailProcessado = processarCorpoEmail(mensagem);
-			
-			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
-			helper.setFrom(emailProperties.getRemetente());
-			helper.setTo(mensagem.getDestinatarios().toArray(new String[0]));
-			helper.setSubject(mensagem.getAssunto());
-			helper.setText(corpoEmailProcessado, true);
+			MimeMessage mimeMessage = criarMimeMessage(mensagem);
 			
 			mailSender.send(mimeMessage);
 		} catch(Exception e) {
@@ -45,7 +38,7 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
 		}
 	}
 
-	private String processarCorpoEmail(Mensagem mensagem) {
+	protected String processarCorpoEmail(Mensagem mensagem) {
 		try {
 			Template template = freemarkerConfig.getTemplate(mensagem.getTexto());
 			
@@ -55,4 +48,16 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
 		} 
 	}
 
+	protected MimeMessage criarMimeMessage(Mensagem mensagem) throws MessagingException {
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+		String corpoEmailProcessado = processarCorpoEmail(mensagem);
+		
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
+		helper.setFrom(emailProperties.getRemetente());
+		helper.setTo(mensagem.getDestinatarios().toArray(new String[0]));
+		helper.setSubject(mensagem.getAssunto());
+		helper.setText(corpoEmailProcessado, true);
+		
+		return mimeMessage;
+	}
 }
