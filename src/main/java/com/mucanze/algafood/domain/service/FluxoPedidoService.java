@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mucanze.algafood.domain.model.Pedido;
-import com.mucanze.algafood.domain.service.EnvioEmailService.Mensagem;
+import com.mucanze.algafood.domain.repository.PedidoRepository;
 
 @Service
 public class FluxoPedidoService {
@@ -14,7 +14,7 @@ public class FluxoPedidoService {
 	private EmissaoPedidoService emissaoPedidoService; 
 	
 	@Autowired
-	private EnvioEmailService envioEmailService;
+	private PedidoRepository pedidoRepository;
 	
 	@Transactional
 	public void confirmar(String codigoPedido) {
@@ -22,14 +22,7 @@ public class FluxoPedidoService {
 		
 		pedido.confirmar();
 		
-		Mensagem mensagem = Mensagem.builder()
-				.assunto(pedido.getRestaurante().getNome() + " Pedido confirmado")
-				.destinatario(pedido.getCliente().getEmail())
-				.texto("email_confirmacao_pedido.html")
-				.variavel("pedido", pedido)
-				.build();
-		
-		envioEmailService.enviar(mensagem);
+		pedidoRepository.save(pedido);
 	}
 	
 	@Transactional
@@ -44,6 +37,8 @@ public class FluxoPedidoService {
 		Pedido pedido = emissaoPedidoService.buscarPorCodigo(codigoPedido);
 		
 		pedido.cancelar();
+		
+		pedidoRepository.save(pedido);
 	}
 
 }

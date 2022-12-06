@@ -22,17 +22,20 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
+import com.mucanze.algafood.domain.event.PedidoCanceladoEvent;
+import com.mucanze.algafood.domain.event.PedidoConfirmadoEvent;
 import com.mucanze.algafood.domain.exception.NegocioException;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Entity
 @Table(name="pedido")
-public class Pedido {
+public class Pedido extends AbstractAggregateRoot<Pedido> {
 	
 	@EqualsAndHashCode.Include
 	@Id
@@ -105,6 +108,8 @@ public class Pedido {
 	public void confirmar() {
 		this.setStatus(StatusPedido.CONFIRMADO);
 		this.setDataConfirmacao(OffsetDateTime.now());
+		
+		registerEvent(new PedidoConfirmadoEvent(this));
 	}
 	
 	public void entregar() {
@@ -115,6 +120,8 @@ public class Pedido {
 	public void cancelar() {
 		this.setStatus(StatusPedido.CANCELADO);
 		this.setDataCancelamento(OffsetDateTime.now());
+		
+		registerEvent(new PedidoCanceladoEvent(this));
 	}
 	
 	private void setStatus(StatusPedido novoStatus) {
@@ -127,8 +134,8 @@ public class Pedido {
 								this.getStatus().getDescricao()));
 			}
 			throw new NegocioException(
-					String.format("Pedido de identificador %d não pode transitar de status %s para status %s",
-					this.getId(),
+					String.format("Pedido de código %s não pode transitar de status %s para status %s",
+					this.getCodigo(),
 					this.getStatus().getDescricao(),
 					novoStatus.getDescricao()));
 		}

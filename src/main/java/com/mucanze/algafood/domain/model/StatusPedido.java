@@ -8,7 +8,7 @@ public enum StatusPedido {
 	CRIADO("Criado"),
 	CONFIRMADO("Confirmado", CRIADO),
 	ENTREGUE("Entregue", CONFIRMADO),
-	CANCELADO("Cancelado", ENTREGUE);
+	CANCELADO("Cancelado", CRIADO, CONFIRMADO, ENTREGUE);
 	
 	private String descricao;
 	
