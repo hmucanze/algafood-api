@@ -48,7 +48,10 @@ public class RestauranteController {
 	
 	@GetMapping
 	public List<RestauranteOutputModel> listar() {
-		return restauranteOutputModelAssembler.toCollectionModel(restauranteRepository.findAll());
+		List<RestauranteOutputModel> restaurantes = restauranteOutputModelAssembler
+				.toCollectionModel(restauranteRepository.findAll());
+		
+		return restaurantes;
 	}
 	
 	@GetMapping("/taxa")

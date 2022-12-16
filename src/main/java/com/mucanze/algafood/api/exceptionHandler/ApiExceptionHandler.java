@@ -66,11 +66,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(EntidadeEmUsoException.class)
 	public ResponseEntity<?> handleEntidadeEmUsoException(EntidadeEmUsoException e, WebRequest request) {
 		
-		ProblemType problemaType = ProblemType.ENTIDADE_EM_USO_EXCEPTION;
+		ProblemType problemType = ProblemType.ENTIDADE_EM_USO_EXCEPTION;
 		HttpStatus status = HttpStatus.CONFLICT;
 		String detail = e.getMessage();
 		
-		Problem problem = createProblemBuilder(status, problemaType, detail).build();
+		Problem problem = createProblemBuilder(status, problemType, detail)
+				.userMessage(detail)
+				.build();
 		
 		return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
 	}
