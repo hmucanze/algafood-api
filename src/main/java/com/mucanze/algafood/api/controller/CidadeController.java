@@ -24,6 +24,11 @@ import com.mucanze.algafood.domain.model.Cidade;
 import com.mucanze.algafood.domain.repository.CidadeRepository;
 import com.mucanze.algafood.domain.service.CadastroCidadeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+@Api(tags = "Cidades")
 @RestController
 @RequestMapping("/cidades")
 public class CidadeController {
@@ -40,17 +45,20 @@ public class CidadeController {
 	@Autowired
 	private CidadeInputDisassembler cidadeInputDisassembler;
 	
+	@ApiOperation("Lista todas Cidades")
 	@GetMapping
 	public List<CidadeOutputModel> listar() {
 		return cidadeOutputModelAssembler.toCollectionModel(cidadeRepository.findAll());
 	}
 	
+	@ApiOperation("Busca uma Cidade por ID")
 	@GetMapping("/{id}")
-	public CidadeOutputModel buscarPorId(@PathVariable Long id) {
+	public CidadeOutputModel buscarPorId(@ApiParam(value = "ID da Cidade") @PathVariable Long id) {
 		Cidade cidade = cadastroCidadeService.buscarPorId(id);
 		return cidadeOutputModelAssembler.toModel(cidade);
 	}
 	
+	@ApiOperation("Cadastra uma Cidade")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeOutputModel salvar(@RequestBody @Valid CidadeInputModel cidadeInputModel) {
@@ -58,17 +66,20 @@ public class CidadeController {
 		return cidadeOutputModelAssembler.toModel(cadastroCidadeService.salvar(cidade));
 	}
 	
+	@ApiOperation("Actualiza uma Cidade por ID")
 	@PutMapping("/{id}")
-	public CidadeOutputModel actualizar(@RequestBody @Valid CidadeInputModel cidadeInpuModel, @PathVariable Long id) {
+	public CidadeOutputModel actualizar(@RequestBody @Valid CidadeInputModel cidadeInpuModel,
+			@ApiParam(value="ID da Cidade") @PathVariable Long id) {
 		Cidade cidade = cidadeInputDisassembler.toDomainObject(cidadeInpuModel);
 		cidade = cadastroCidadeService.actualizar(cidade, id);
 		
 		return cidadeOutputModelAssembler.toModel(cidade);
 	}
 	
+	@ApiOperation("Remove uma Cidade por ID")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long id) {
+	public void remover(@ApiParam(value="ID da Cidade") @PathVariable Long id) {
 		cadastroCidadeService.remover(id);
 	}
 

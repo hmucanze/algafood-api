@@ -20,7 +20,7 @@ public class EmissaoPedidoService {
 	private PedidoRepository pedidoRepository;
 	
 	@Autowired
-	private CadastroRestauranteService cadastroResthauranteService;
+	private CadastroRestauranteService cadastroRestauranteService;
 	
 	@Autowired
 	private CadastroFormaPagamentoService cadastroFormaPagamentoService;
@@ -53,7 +53,7 @@ public class EmissaoPedidoService {
 	}
 
 	private void validarPedido(Pedido pedido) {
-		Restaurante restaurante = cadastroResthauranteService.buscarPorId(pedido.getRestaurante().getId());
+		Restaurante restaurante = cadastroRestauranteService.buscarPorId(pedido.getRestaurante().getId());
 	
 		FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscarPorId(pedido.getFormaPagamento().getId());
 		
